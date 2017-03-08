@@ -29,4 +29,11 @@ export class SellersService {
       });
   }
 
+  getSellerProducts(id: number) : Observable<SellerProducts[]> {
+      return this.http.get(`http://localhost:5000/api/sellers/${id}/products`);
+      .map(response => {
+        return <SellerProducts[]> response.json();
+      });
+  }
+
 }

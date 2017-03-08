@@ -2,13 +2,47 @@
 
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { SellersService} from './sellers.service';
 
 describe('AppComponent', () => {
+
+  const mockService = {
+    successGetProducts: true,
+    productList: [{
+      id: 7,
+      name: "Ullarsokkar",
+    }],
+    getSellersProduct: function(id) {
+        return {
+          subscribe: function(fnSuccess, fnError) {
+            if(mockService.successGetProducts === true) {
+              fnSuccess(mockService.productList);
+            }
+            else {
+              fnError();
+            }
+          }
+        }
+    }
+  };
+
+  var mockModal = {
+    open: jasmine.createSpy("open");
+  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
+      providers: [ {
+        provide: SellersService,
+        useValue: mockService
+      }, {
+        provide: ngbModal
+        useValue: mockService
+      }
+      ]
     });
     TestBed.compileComponents();
   });
@@ -31,4 +65,12 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('app works!');
   }));
+
+  describe("when sellers service returns empty list of products", () => {
+    mockService.successGetProducts = true;
+    mockService.productList = []
+    it("should display a message indicating that no products are to be displayed" () => {
+
+    });
+  })
 });
