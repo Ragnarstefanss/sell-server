@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SellersService, SellerProduct } from './sellers.service';
+import { SellersService, SellerProduct, Seller } from './sellers.service';
 import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { SellerDlgComponent } from './seller-dlg/seller-dlg.component';
 
@@ -11,11 +11,11 @@ import { SellerDlgComponent } from './seller-dlg/seller-dlg.component';
 export class AppComponent implements OnInit {
   title = 'app works!';
 
-  sellers: SellerDlgComponent[];
   products: SellerProduct[];
 
   //private sellers: Seller[];
   private seller: SellerProduct;
+  sellerlist: Seller[];
 
 
   constructor(private modalService : NgbModal, private service : SellersService) { }
@@ -24,15 +24,16 @@ export class AppComponent implements OnInit {
     var successHandler = result => {
       this.seller = result;
     };
+    var successHandler2 = result => {
+      this.sellerlist = result;
+    };
     var errorHandler = (err) => {
       // TODO: display toastr!
       console.log("Something failed");
     }
-     this.service.getSellerById(1).subscribe(successHandler, errorHandler);
-    /*
-    this.service.getSellers().subscribe(result => {
-      this.sellers = result;
-    })*/
+    // this.service.getSellerById(1).subscribe(successHandler, errorHandler);
+
+    this.service.getSellers().subscribe(successHandler2, errorHandler);
 
       this.service.getSellerProducts(1).subscribe(result => {
         this.products = result;

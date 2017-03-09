@@ -12,22 +12,30 @@ export interface SellerProduct {
   imagePath: string;
 }
 
+
+export interface Seller {
+  id: number;
+  name: string;
+  category: string;
+  imagePath: string;
+}
+
 @Injectable()
 export class SellersService {
 
   constructor(private http : Http) { }
 
-  getSellers() : Observable<SellerProduct[]> {
+  getSellers() : Observable<Seller[]> {
     return this.http.get('http://localhost:5000/api/sellers')
     .map(response => {
-      return <SellerProduct[]> response.json();
+      return <Seller[]> response.json();
     });
   }
 
-  getSellerById(id: number) : Observable<SellerProduct> {
+  getSellerById(id: number) : Observable<Seller> {
       return this.http.get(`http://localhost:5000/api/sellers/${id}`)
       .map(response => {
-        return <SellerProduct> response.json();
+        return <Seller> response.json();
       });
   }
 
