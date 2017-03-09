@@ -1,21 +1,47 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+  <div class="page-header">
+    <h1>
+      {{title}}
+    </h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
 
-<div *ngFor="let p of products">
-  <app-product-card
-  [product]="p"
-  (productUpdated)="onProductEdited($event)">
+      <div class="alert alert-info">
+        <strong>OFFICIAL SELLER</strong>
+      </div>
+      <div *ngIf="seller">
+        <h2>{{seller.name}}</h2>
+        <img src="{{seller.imagePath}}" alt="Image of the seller" />
+      </div>
 
-  </app-product-card>
+
+
+      <br>
+      <div class="alert alert-info">
+        All products
+      </div>
+
+      <div *ngFor="let p of products">
+        <app-product-card
+        [product]="p"
+        (productUpdated)="onProductEdited($event)">
+        </app-product-card>
+      </div>
+
+      <ngb-alert type="info">
+        nú er gaman
+      </ngb-alert>
+      <button class="btn btn-lg btn-outline-primary" (click)="addSeller()">Bæta við seljanda</button>
+
+    </div>
+  </div>
 </div>
 
-<ngb-alert type="info">
-  nú er gaman
-</ngb-alert>
-<button class="btn btn-lg btn-outline-primary" (click)="addSeller()">Bæta við seljanda</button>
 
-<template ngbModalContainer></template>
+
+
+
 
 
 <!--

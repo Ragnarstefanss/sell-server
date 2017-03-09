@@ -11,7 +11,9 @@ import { SellerDlgComponent } from './seller-dlg/seller-dlg.component';
 export class AppComponent implements OnInit {
   title = 'app works!';
 
+  sellers: SellerDlgComponent[];
   products: SellerProduct[];
+
   //private sellers: Seller[];
   private seller: SellerProduct;
 
@@ -19,13 +21,19 @@ export class AppComponent implements OnInit {
   constructor(private modalService : NgbModal, private service : SellersService) { }
 
   ngOnInit() {
-    /*var successHandler = result => {
+    var successHandler = result => {
       this.seller = result;
     };
     var errorHandler = (err) => {
       // TODO: display toastr!
       console.log("Something failed");
-    */
+    }
+     this.service.getSellerById(1).subscribe(successHandler, errorHandler);
+    /*
+    this.service.getSellers().subscribe(result => {
+      this.sellers = result;
+    })*/
+
       this.service.getSellerProducts(1).subscribe(result => {
         this.products = result;
       })
