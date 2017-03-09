@@ -1,13 +1,15 @@
 <h1>
   {{title}}
 </h1>
-<!--
-<ul>
-  <li *ngFor="let s of sellers">
-    {{s.name}}
-  </li>
-</ul>
--->
+
+<div *ngFor="let p of products">
+  <app-product-card
+  [product]="p"
+  (productUpdated)="onProductEdited($event)">
+
+  </app-product-card>
+</div>
+
 <ngb-alert type="info">
   nú er gaman
 </ngb-alert>
@@ -15,7 +17,14 @@
 
 <template ngbModalContainer></template>
 
+
 <!--
+<ul>
+  <li *ngFor="let s of sellers">
+    {{s.name}}
+  </li>
+</ul>
+
 <div *ngIf="seller">
   <h2>{{seller.name}}</h2>
   <img src="{{seller.imagePath}}" alt="Image of the seller" />
