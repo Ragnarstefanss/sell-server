@@ -7,19 +7,37 @@
   <div class="row">
     <div class="col-md-6">
 
+      <button class="btn btn-lg btn-outline-primary" (click)="addSeller()">Bæta við seljanda</button>
+
       <div class="alert alert-info">
         <strong>OFFICIAL SELLER</strong>
       </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let s of sellerlist">
+          <tr>
+            <td>{{s.name}}</td>
+            <td>{{s.category}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    <!--
       <ul>
         <div *ngFor="let s of sellerlist">
           <h2>{{s.name}}</h2>
           <img src="{{s.imagePath}}" alt="Image of the seller" />
         </div>
       </ul>
+    -->
 
 
-
-      <br>
       <div class="alert alert-info">
         All products
       </div>
@@ -30,11 +48,6 @@
         (productUpdated)="onProductEdited($event)">
         </app-product-card>
       </div>
-
-      <ngb-alert type="info">
-        nú er gaman
-      </ngb-alert>
-      <button class="btn btn-lg btn-outline-primary" (click)="addSeller()">Bæta við seljanda</button>
 
     </div>
   </div>
@@ -47,16 +60,10 @@
 
 
 <!--
-<ul>
-  <li *ngFor="let s of sellers">
-    {{s.name}}
-  </li>
-</ul>
 
-<div *ngIf="seller">
-  <h2>{{seller.name}}</h2>
-  <img src="{{seller.imagePath}}" alt="Image of the seller" />
-</div>
+      <ngb-alert type="info">
+        nú er gaman
+      </ngb-alert>
 
 <div class="container">
   <div class ="row">

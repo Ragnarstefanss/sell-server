@@ -9,7 +9,7 @@ import { SellerDlgComponent } from './seller-dlg/seller-dlg.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app works!';
+  title = 'Söluaðilar!';
 
   products: SellerProduct[];
 
