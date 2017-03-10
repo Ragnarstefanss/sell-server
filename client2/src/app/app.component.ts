@@ -105,7 +105,7 @@ export class AppComponent implements OnInit {
     }
     for(var s in this.sellerlist)
     {
-      console.log("S id is "+ this.sellerlist[s].id +" and S.name is "+this.sellerlist[s].name);
+      //console.log("S id is "+ this.sellerlist[s].id +" and S.name is "+this.sellerlist[s].name);
       if(this.sellerlist[s].name == this.sellerName)
       {
         Exists = true;
@@ -166,9 +166,13 @@ export class AppComponent implements OnInit {
     var Exists: boolean;
     Exists = false;
     var oldId: number;
+    if(newProduct.id != 0)
+    {
+      Exists = true;
+    }
       for(var s in this.sellerProduct)
     {
-      console.log("S id is "+ this.sellerProduct[s].id +" and S.name is "+this.sellerProduct[s].name);
+      //console.log("S id is "+ this.sellerProduct[s].id +" and S.name is "+this.sellerProduct[s].name);
       if(this.sellerProduct[s].name == newProduct.name)
       {
         Exists = true;
@@ -204,20 +208,24 @@ export class AppComponent implements OnInit {
       name: product.name,
       price: product.price,
       quantityInStock: product.quantityInStock,
+      quantitySold: product.quantitySold,
       imagePath: product.imagePath,
       id: product.id
     };
+    modalInstance.componentInstance.edit = true;
        modalInstance.result.then(obj => {
       console.log("Dialog was closed using OK");
       console.log(obj);
       newProduct = {
-        id: 0,
+        id: obj.id,
         name: obj.name,
         price: obj.price,
         quantityInStock: obj.quantityInStock,
         quantitySold: obj.quantitySold,
         imagePath: obj.imagePath
       }
+      console.log("new product is");
+      console.log(newProduct);
       this.onAddProduct(newProduct);
     }).catch(err => {
       console.log("Dialog was cancelled");
@@ -236,6 +244,7 @@ export class AppComponent implements OnInit {
       imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
       id: 7
     };
+    modalInstance.componentInstance.edit = false;
 
     modalInstance.result.then(obj => {
       console.log("Dialog was closed using OK");

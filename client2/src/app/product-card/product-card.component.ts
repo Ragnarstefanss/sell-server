@@ -1,6 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SellerProduct } from '../sellers.service'
 import { NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+
+export class SellerProduct {
+  id: number;
+  name: string;
+  price: number;
+  quantitySold: number;
+  quantityInStock: number;
+  imagePath: string;
+}
 
 @Component({
   selector: 'app-product-card',
@@ -10,6 +18,7 @@ import { NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 export class ProductCardComponent implements OnInit {
   @Input()
   product: SellerProduct;
+  edit: boolean;
 
   @Output()
   productUpdated = new EventEmitter();
@@ -17,6 +26,7 @@ export class ProductCardComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
+    
   }
 
    onCancel() {

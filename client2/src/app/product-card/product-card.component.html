@@ -6,11 +6,12 @@
 </div>
 
 
+
 <!--breyta í edit a product -->
 <div class="modal-body">
   <div class="form-group">
     <label class="control-label">Name</label>
-    <input type="text" class="form-control" name="name" [(ngModel)]="product.name" autofocus=""/>
+    <input type="text" class="form-control" name="name" [(ngModel)]="product.name" autofocus="" [readonly]="edit"  />
   </div>
   <div class="form-group">
     <label class="control-label">Price</label>
