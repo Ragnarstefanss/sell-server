@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SellerProduct } from '../sellers.service'
+import { NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
@@ -12,14 +14,17 @@ export class ProductCardComponent implements OnInit {
   @Output()
   productUpdated = new EventEmitter();
 
-  constructor() { }
+  constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
   }
 
-  onEdit() {
-    this.product.name = "smuuuu";
-    this.productUpdated.emit(this.product);
+   onCancel() {
+    this.activeModal.dismiss();
   }
 
+  onOk() 
+  {
+    this.activeModal.close(this.product);
+  }
 }

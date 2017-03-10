@@ -2,6 +2,7 @@ import { Component, OnInit,  Input, Output, EventEmitter } from '@angular/core';
 import { SellersService, SellerProduct, Seller } from './sellers.service';
 import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { SellerDlgComponent } from './seller-dlg/seller-dlg.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @Component({
   selector: 'app-root',
@@ -33,12 +34,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.onGetSellers();
-
-    /*
-    this.service.getSellerProducts(1).subscribe(result => {
-      this.products = result;
-    })
-    */
   };
 
   onGetProducts(num : number)
@@ -154,5 +149,33 @@ export class AppComponent implements OnInit {
       console.log("Dialog was cancelled");
       console.log(err);
     });
+  }
+  
+    addProduct() {
+    const modalInstance = this.modalService.open(ProductCardComponent);
+    var newSeller : Seller;
+    var Exists: boolean;
+    Exists = false;
+    var oldId: number;
+
+    modalInstance.componentInstance.seller = {
+      name: "Ragnar",
+      category: "undefined",
+      imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
+      id: 7
+    };
+
+    modalInstance.result.then(obj => {
+      console.log("Dialog was closed using OK");
+      console.log(obj);
+      this.sellerName = obj.name;
+      this.sellerCatagory = obj.category;
+      this.sellerImagePath = obj.imagePath;
+      this.onAddSeller();
+    }).catch(err => {
+      console.log("Dialog was cancelled");
+      console.log(err);
+    });
     }
+
   }

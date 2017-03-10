@@ -1,10 +1,27 @@
+<div class="modal-header">
+<h4 class="modal-title">Create a new product</h4>
+<button type="button" class="close" aria-label="Close" (click)="onCancel()">
+  <span aria-hidden="true">&times;</span>
+</button>
+</div>
 
-<div *ngIf="product">
-  <br>
-  <h3>{{product.name}}</h3>
-  <img [src]="product.imagePath" style="width: 120px" />
-  <br>
-  <i>{{product.price}}</i>
-  <br>
-  <button class="btn-primary" (click)="onEdit()">Breyta vöru</button>
+<!--breyta í edit a user -->
+<div class="modal-body">
+  <div class="form-group">
+    <label class="control-label">Name</label>
+    <input type="text" class="form-control" name="name" [(ngModel)]="product.name" autofocus=""/>
+  </div>
+  <div class="form-group">
+    <label class="control-label">Category</label>
+    <input type="text" class="form-control" name="category" [(ngModel)]="seller.category"  placeholder="enter category here"/>
+  </div>
+  <div class="form-group">
+    <label class="control-label">Image url</label>
+    <input type="text" class="form-control" name="imagePath" [(ngModel)]="seller.imagePath" placeholder="enter url path here"/>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="onCancel()">Close</button>
+  <button type="button" class="btn btn-success" (click)="onOk()">OK</button>
 </div>
