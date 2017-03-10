@@ -41,6 +41,14 @@ export class AppComponent implements OnInit {
     */
   };
 
+  onGetProducts(num : number)
+{
+   this.service.getSellerProducts(num).subscribe((result) => {
+        this.sellerProduct = result;
+        },(err) => {
+      console.log("Something failed in getSellerProducts");
+    });
+}
 
   getSeller(num: number){
     console.log(num);
@@ -82,16 +90,39 @@ export class AppComponent implements OnInit {
 
   onAddSeller(){
     var newSeller : Seller;
+    var Exists: boolean;
+    Exists = false;
+    var oldId: number;
     newSeller = {
       id: 0,
       name: this.sellerName,
       category: this.sellerCatagory,
       imagePath: this.sellerImagePath
     }
-    this.service.postSeller(newSeller).subscribe((result) => {
+    for(var s in this.sellerlist)
+    {
+      console.log("S id is "+ this.sellerlist[s].id +" and S.name is "+this.sellerlist[s].name);
+      if(this.sellerlist[s].name == this.sellerName)
+      {
+        Exists = true;
+        oldId = this.sellerlist[s].id;
+      }
+    }
+    if(Exists == false)
+    {
+       this.service.postSeller(newSeller).subscribe((result) => {
       console.log("new seller with name "+ result.name + "was added");
       this.onGetSellers();
     });
+  }
+  else
+  {
+      console.log("seller exists modifying now");
+        this.service.uppdateSeller(oldId,newSeller).subscribe((result) => {
+      console.log("seller with name "+ result.name + "was modified");
+      this.onGetSellers();
+    });
+  }
   }
 
   onProductEdited(p: SellerProduct) {
@@ -100,6 +131,10 @@ export class AppComponent implements OnInit {
 
   addSeller() {
     const modalInstance = this.modalService.open(SellerDlgComponent);
+    var newSeller : Seller;
+    var Exists: boolean;
+    Exists = false;
+    var oldId: number;
 
     modalInstance.componentInstance.seller = {
       name: "Ragnar",
@@ -111,16 +146,13 @@ export class AppComponent implements OnInit {
     modalInstance.result.then(obj => {
       console.log("Dialog was closed using OK");
       console.log(obj);
+      this.sellerName = obj.name;
+      this.sellerCatagory = obj.category;
+      this.sellerImagePath = obj.imagePath;
+      this.onAddSeller();
     }).catch(err => {
       console.log("Dialog was cancelled");
       console.log(err);
     });
+    }
   }
-/*
-  editSeller() {
-    this.seller.name = "smuuuu";
-    this.sellerUpdated.emit(this.seller.name);
-  }*/
-
-
-}

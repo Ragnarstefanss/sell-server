@@ -58,4 +58,58 @@ export class SellersService {
       });
   }
 
+   uppdateSeller(SellerId:number,upSeller: Seller){
+      var param = {
+        id:SellerId,
+        name: upSeller.name,
+        category: upSeller.category,
+        imagePath: upSeller.imagePath
+      }
+      //test
+      this.getSellerById(SellerId).subscribe((result) => {
+        console.log("id "+ SellerId + "coresponds to the name "+result.name);
+      });
+    return this.http.put(`http://localhost:5000/api/sellers/${SellerId}`,param)
+      .map(response => {
+        console.log()
+      return <Seller> response.json();
+    });
+  }
+
+    postProduct(id:number,newProduct: SellerProduct): Observable<SellerProduct>{
+    var param = {
+             name: newProduct.name,
+         price: newProduct.price,
+      quantitySold: newProduct.quantitySold,
+      quantityInStock: newProduct.quantityInStock,
+      imagePath: newProduct.imagePath
+      }
+    return this.http.post(`http://localhost:5000/api/sellers/${id}/products`,param)
+      .map(response => {
+        console.log()
+      return <SellerProduct> response.json();
+    });
+  }
+
+  updateProduct(SellerId:number,oldId: number,upProduct: SellerProduct){
+      var param = {
+        id: SellerId,
+        prodId: oldId,
+         name: upProduct.name,
+         price: upProduct.price,
+      quantitySold: upProduct.quantitySold,
+      quantityInStock: upProduct.quantityInStock,
+      imagePath: upProduct.imagePath
+      }
+      //test
+      this.getSellerById(SellerId).subscribe((result) => {
+        console.log("id "+ SellerId + "coresponds to the name "+result.name);
+      });
+    return this.http.put(`http://localhost:5000/api/sellers/${SellerId}/products/${oldId}`,param)
+      .map(response => {
+        console.log()
+      return <SellerProduct> response.json();
+    });
+  }
+
 }
