@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   sellerCatagory: string;
   sellerImagePath : string;
   private newProduct : SellerProduct;
+  private top10 : boolean;
 
 
   constructor(private modalService : NgbModal, private service : SellersService) {
@@ -34,12 +35,17 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.onGetSellers();
+    this.top10 = false;
   };
 
   onGetProducts(num : number)
 {
+  console.log("get products now");
    this.service.getSellerProducts(num).subscribe((result) => {
         this.sellerProduct = result;
+        this.sellerProduct = this.sellerProduct.sort(function(a,b){
+          return a.quantitySold < b.quantitySold ? 1 : -1
+        });
         },(err) => {
       console.log("Something failed in getSellerProducts");
     });
@@ -55,6 +61,9 @@ export class AppComponent implements OnInit {
 
     var successGetSellerProducts = result => {
         this.sellerProduct = result;
+          this.sellerProduct = this.sellerProduct.sort(function(a,b){
+          return a.quantitySold < b.quantitySold ? 1 : -1
+        });
     };
 
     var errorGetSeller = (err) => {
@@ -150,17 +159,80 @@ export class AppComponent implements OnInit {
       console.log(err);
     });
   }
-  
-    addProduct() {
-    const modalInstance = this.modalService.open(ProductCardComponent);
-    var newSeller : Seller;
+  onAddProduct(newProduct: SellerProduct)
+  {
+    console.log("product is");
+    console.log(newProduct);
     var Exists: boolean;
     Exists = false;
     var oldId: number;
+      for(var s in this.sellerProduct)
+    {
+      console.log("S id is "+ this.sellerProduct[s].id +" and S.name is "+this.sellerProduct[s].name);
+      if(this.sellerProduct[s].name == newProduct.name)
+      {
+        Exists = true;
+        oldId = this.sellerProduct[s].id;
+      }
+    }
+    if(Exists == false)
+    {
+        this.service.postProduct(this.seller.id,newProduct).subscribe((result) => {
+      console.log("new product with name "+ result.name + "was added");
+      this.onGetProducts(this.seller.id);
+    });
+  }
+  else
+  {
+    console.log("seller exists modifying now");
+        this.service.updateProduct(this.seller.id,oldId,newProduct).subscribe((result) => {
+      console.log("product with name "+ result.name + "was modified");
+      this.onGetProducts(this.seller.id);
+    });
+  }
+  }
 
-    modalInstance.componentInstance.seller = {
-      name: "Ragnar",
-      category: "undefined",
+  editProduct(product: SellerProduct)
+  {
+    console.log("edit product is");
+    console.log(product);
+    const modalInstance = this.modalService.open(ProductCardComponent);
+    var oldId: number;
+    var newProduct : SellerProduct;
+
+    modalInstance.componentInstance.product = {
+      name: product.name,
+      price: product.price,
+      quantityInStock: product.quantityInStock,
+      imagePath: product.imagePath,
+      id: product.id
+    };
+       modalInstance.result.then(obj => {
+      console.log("Dialog was closed using OK");
+      console.log(obj);
+      newProduct = {
+        id: 0,
+        name: obj.name,
+        price: obj.price,
+        quantityInStock: obj.quantityInStock,
+        quantitySold: obj.quantitySold,
+        imagePath: obj.imagePath
+      }
+      this.onAddProduct(newProduct);
+    }).catch(err => {
+      console.log("Dialog was cancelled");
+      console.log(err);
+    });
+    }
+  
+  
+    addProduct() {
+    const modalInstance = this.modalService.open(ProductCardComponent);
+    var newProduct : SellerProduct;
+    modalInstance.componentInstance.product = {
+      name: "name",
+      price: 0,
+      quantityInStock: 0,
       imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
       id: 7
     };
@@ -168,14 +240,28 @@ export class AppComponent implements OnInit {
     modalInstance.result.then(obj => {
       console.log("Dialog was closed using OK");
       console.log(obj);
-      this.sellerName = obj.name;
-      this.sellerCatagory = obj.category;
-      this.sellerImagePath = obj.imagePath;
-      this.onAddSeller();
+      newProduct = {
+        id: 0,
+        name: obj.name,
+        price: obj.price,
+        quantityInStock: obj.quantityInStock,
+        quantitySold: obj.quantitySold,
+        imagePath: obj.imagePath
+      }
+      this.onAddProduct(newProduct);
     }).catch(err => {
       console.log("Dialog was cancelled");
       console.log(err);
     });
-    }
+  }
+  
+  setTop10()
+  {
+    this.top10 = true;
+  }
+  setAllproducts()
+  {
+    this.top10 = false;
+  }
 
   }

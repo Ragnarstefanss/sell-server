@@ -40,9 +40,37 @@
     <h2>{{seller.category}}</h2>
     <img src="{{seller.imagePath}}" alt="Image of the seller" style="max-width: 128px; max-height:128px;" />
     <h1>products from sellected seller</h1>
-    <button class="btn  btn-outline-primary" >top10</button>
-    <button class="btn  btn-outline-primary" >all products</button>
-    <ul>
+    <button class="btn  btn-outline-primary"  (click)="setTop10()">top10</button>
+    <button class="btn  btn-outline-primary" (click)="setAllproducts()">all products</button>
+    <div *ngIf="top10">
+      <ul>
+        <div *ngFor="let p of sellerProduct; let i = index" >
+        <li *ngIf="i<10">
+                  <table>
+                <tr>
+                    <th>product Id: {{p.id}}</th>
+                    <td>product name: {{p.name}}</td>
+                </tr>
+                <tr>
+                    <th rowspan="4"><img src="{{p.imagePath}}" alt="Image of the product" style="max-width: 128px; max-height:128px;" /></th>
+                    <td>price: {{p.price}}</td>
+                </tr>
+                <tr>
+                    <td>sold {{p.quantitySold}}</td>
+                </tr>
+                <tr>
+                    <td>current stock: {{p.quantityInStock}}</td>
+                </tr>
+                <tr>
+                    <td><button class="btn  btn-outline-primary" (click)="editProduct(p)">Edit</button></td>
+                </tr>
+            </table>
+        </li>
+        </div>
+    </ul>
+    </div>
+    <div [hidden]="top10">
+      <ul>
         <li *ngFor="let p of sellerProduct">
             <table>
                 <tr>
@@ -60,12 +88,15 @@
                     <td>current stock: {{p.quantityInStock}}</td>
                 </tr>
                 <tr>
-                    <td><button class="btn  btn-outline-primary" (click)="addProduct()">Edit</button></td>
+                    <td><button class="btn  btn-outline-primary" (click)="editProduct(p)">Edit</button></td>
                 </tr>
             </table>
 
         </li>
     </ul>
+  </div>
+    
+    <div *ngIf="sellerSelected">
     <div class="float-right">
         <button class="btn  btn-outline-primary" (click)="addProduct()">Add a new Product</button>
       </div>
