@@ -1,22 +1,18 @@
 <div class="container">
   <div class="page-header">
-    <h1>
-      {{title}}
-    </h1>
+    <h1>{{title}}</h1>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
 
-      <button class="btn btn-lg btn-outline-primary" (click)="addSeller()">Bæta við seljanda</button>
-
-      <div class="alert alert-info">
-        <strong>OFFICIAL SELLER</strong>
+      <div class="float-right">
+        <button class="btn  btn-outline-primary" (click)="addSeller()">Add a new seller</button>
       </div>
 
       <table class="table">
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Name of seller</th>
             <th>Category</th>
           </tr>
         </thead>
@@ -28,48 +24,7 @@
         </tbody>
       </table>
 
-    <!--
-      <ul>
-        <div *ngFor="let s of sellerlist">
-          <h2>{{s.name}}</h2>
-          <img src="{{s.imagePath}}" alt="Image of the seller" />
-        </div>
-      </ul>
-    -->
-
-
-      <div class="alert alert-info">
-        All products
-      </div>
-
-      <div *ngFor="let p of products">
-        <app-product-card
-        [product]="p"
-        (productUpdated)="onProductEdited($event)">
-        </app-product-card>
-      </div>
-
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-<!--
-
-      <ngb-alert type="info">
-        nú er gaman
-      </ngb-alert>
-
-<div class="container">
-  <div class ="row">
-    <div class="col-sm-12 col-md-3 col-lg-2">
-
-    </div>
-  </div>
-</div>
--->
+<template ngbModalContainer></template>
