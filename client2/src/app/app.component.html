@@ -14,15 +14,57 @@
           <tr>
             <th>Name of seller</th>
             <th>Category</th>
+            <th>See products</th>
           </tr>
         </thead>
         <tbody *ngFor="let s of sellerlist">
           <tr>
             <td><a href="sellers/s.id">{{s.name}}</a></td>
             <td>{{s.category}}</td>
+            <td><button (click)="getSeller(s.id)">see products</button></td>
           </tr>
         </tbody>
       </table>
+
+      <!-- add new seller -->
+      <input type="text" class="form-control" placeholder="new Seller name" [(ngModel)]="sellerName" />
+      <input type="text" class="form-control" placeholder="new Seller catagory" [(ngModel)]="sellerCatagory" />
+      <input type="text" class="form-control" placeholder="new Seller imagePath" [(ngModel)]="sellerImagePath" />
+
+      <button type="button" class="btn btn-default" (click)="onAddSeller()">Add seller</button>
+
+
+<div *ngIf="sellerSelected">
+    <h1>sellected seller</h1> 
+    <h2>{{seller.name}}</h2>
+    <h2>{{seller.category}}</h2>
+    <img src="{{seller.imagePath}}" alt="Image of the seller" style="max-width: 128px; max-height:128px;" />
+    <h1>products from sellected seller</h1>
+    <ul>
+        <li *ngFor="let p of sellerProduct">
+            <table>
+                <tr>
+                    <th>product Id: {{p.id}}</th>
+                    <td>product name: {{p.name}}</td>
+                </tr>
+                <tr>
+                    <th rowspan="4"><img src="{{p.imagePath}}" alt="Image of the product" style="max-width: 128px; max-height:128px;" /></th>
+                    <td>price: {{p.price}}</td>
+                </tr>
+                <tr>
+                    <td>sold {{p.quantitySold}}</td>
+                </tr>
+                <tr>
+                    <td>current stock: {{p.quantityInStock}}</td>
+                </tr>
+                <tr>
+                    <td>Edit:</td>
+                </tr>
+            </table>
+
+        </li>
+    </ul>
+</div>
 
     </div>
   </div>

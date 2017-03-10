@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  Input, Output, EventEmitter } from '@angular/core';
 import { SellersService, SellerProduct, Seller } from './sellers.service';
 import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { SellerDlgComponent } from './seller-dlg/seller-dlg.component';
@@ -13,51 +13,98 @@ export class AppComponent implements OnInit {
 
   products: SellerProduct[];
 
-  //private sellers: Seller[];
-  private seller: SellerProduct;
   sellerlist: Seller[];
+  private seller: Seller;
+  private sellerProduct: SellerProduct[];
+  private sellerSelected: Boolean;
+  //private newSeller : Seller;
+  sellerName: string;
+  sellerCatagory: string;
+  sellerImagePath : string;
+  private newProduct : SellerProduct;
 
 
-  constructor(private modalService : NgbModal, private service : SellersService) { }
+  constructor(private modalService : NgbModal, private service : SellersService) {
+    this.sellerName = "";
+    this.sellerCatagory = "";
+    this.sellerImagePath = "";
+  }
+
 
   ngOnInit() {
-    var successHandler = result => {
+    this.onGetSellers();
+
+    /*
+    this.service.getSellerProducts(1).subscribe(result => {
+      this.products = result;
+    })
+    */
+  };
+
+
+  getSeller(num: number){
+    console.log(num);
+
+    var successGetSeller = result => {
       this.seller = result;
+      this.sellerSelected = true;
     };
-    var successHandler2 = result => {
+
+    var successGetSellerProducts = result => {
+        this.sellerProduct = result;
+    };
+
+    var errorGetSeller = (err) => {
+      // TODO: display toastr!
+      console.log("Something failed in getSellerById");
+    }
+
+    var errorGetSellerProducts = (err) => {
+      // TODO: display toastr!
+      console.log("Something failed in getSellerProducts");
+    }
+
+    this.service.getSellerById(num).subscribe(successGetSeller, errorGetSeller);
+    this.service.getSellerProducts(num).subscribe(successGetSellerProducts, errorGetSellerProducts);
+  }
+
+  onGetSellers(){
+    var successGetSellers = result => {
       this.sellerlist = result;
     };
     var errorHandler = (err) => {
       // TODO: display toastr!
-      console.log("Something failed");
+      console.log("Something failed in getSellers");
     }
-    // this.service.getSellerById(1).subscribe(successHandler, errorHandler);
+    this.service.getSellers().subscribe(successGetSellers, errorHandler);
+    this.sellerSelected = false;
+  }
 
-    this.service.getSellers().subscribe(successHandler2, errorHandler);
-
-      this.service.getSellerProducts(1).subscribe(result => {
-        this.products = result;
-      })
-    };
-
-    onProductEdited(p: SellerProduct) {
-      console.log(p);
+  onAddSeller(){
+    var newSeller : Seller;
+    newSeller = {
+      id: 0,
+      name: this.sellerName,
+      category: this.sellerCatagory,
+      imagePath: this.sellerImagePath
     }
+    this.service.postSeller(newSeller).subscribe((result) => {
+      console.log("new seller with name "+ result.name + "was added");
+      this.onGetSellers();
+    });
+  }
 
-    //this.service.getSellerById(1).subscribe(successHandler, errorHandler);
-    /*
-    this.service.getSellers().subscribe(result => {
-      this.sellers = result;
-    })
-    */
-
+  onProductEdited(p: SellerProduct) {
+    console.log(p);
+  }
 
   addSeller() {
     const modalInstance = this.modalService.open(SellerDlgComponent);
+
     modalInstance.componentInstance.seller = {
       name: "Ragnar",
-      category: "Hannyrðir",
-      imagePath: "http://ragnarstefansson.com",
+      category: "undefined",
+      imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
       id: 7
     };
 
@@ -69,6 +116,11 @@ export class AppComponent implements OnInit {
       console.log(err);
     });
   }
+/*
+  editSeller() {
+    this.seller.name = "smuuuu";
+    this.sellerUpdated.emit(this.seller.name);
+  }*/
 
 
 }
