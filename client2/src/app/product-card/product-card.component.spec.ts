@@ -2,6 +2,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { FormsModule } from "@angular/forms";
+import { NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+
 
 import { ProductCardComponent } from './product-card.component';
 
@@ -11,7 +14,7 @@ describe('ProductCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductCardComponent ]
+      declarations: [ ProductCardComponent],imports: [FormsModule],providers: [NgbActiveModal]
     })
     .compileComponents();
   }));
