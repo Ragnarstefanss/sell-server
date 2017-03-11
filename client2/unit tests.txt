@@ -1,0 +1,46 @@
+tests
+
+sellers service
+
+	getSellers()
+		check if response contains at sellers
+	
+	getSellerById(id: number)
+		test existing seller
+		test non existing seller test if response.statuscode = 404
+		
+	postSeller(newSeller: Seller)
+		test seller post seller with name catagory and imagepath
+		test seller post seller with name only returns statuscode 400
+		test seller post seller with no name
+		test if successfull post returns statuscode 201
+		test if response seller and getSellerById(response.seller.Id) are the same
+
+	uppdateSeller(SellerId:number,upSeller: Seller)
+		test existing seller with correct name statuscode 200 catagory
+		test existing seller with changed name statuscode 400
+		test non existing seller statuscode 404
+		test if response seller and getSellerById(response.seller.Id) are the same
+		
+
+	getSellerProducts(id: number)
+		check if response contains products
+	
+	
+	postProduct(id:number,newProduct: SellerProduct)
+		test Product post seller with name price stock and impath
+		test Product post seller with name only returns statuscode 400
+		test Product post seller with no name
+		test if successfull post returns statuscode 201
+		test if response Product and getSellerProducts(id) and check if the product with the same productId 
+		as the response product are the same
+	
+	updateProduct(SellerId:number,oldId: number,upProduct: SellerProduct)
+
+		test existing product with correct name statuscode 200 change price
+		test existing product with changed name statuscode 400
+		test existing product with incorrect seller id statuscode 400
+		test non existing product statuscode 404
+		test product with non existing seller id
+		test if response Product and getSellerProducts(id) and check if the product with the same productId 
+		as the response product are the same
