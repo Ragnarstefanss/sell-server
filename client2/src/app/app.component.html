@@ -14,93 +14,86 @@
           <tr>
             <th>Name of seller</th>
             <th>Category</th>
-            <th>See products</th>
           </tr>
         </thead>
         <tbody *ngFor="let s of sellerlist">
           <tr>
-            <td><a href="sellers/s.id">{{s.name}}</a></td>
+            <td><a class="text-primary" (click)="getSeller(s.id)">{{s.name}}</a></td>
             <td>{{s.category}}</td>
-            <td><button (click)="getSeller(s.id)">see products</button></td>
           </tr>
         </tbody>
       </table>
 
-      <!-- add new seller -->
-      <input type="text" class="form-control" placeholder="new Seller name" [(ngModel)]="sellerName" />
-      <input type="text" class="form-control" placeholder="new Seller catagory" [(ngModel)]="sellerCatagory" />
-      <input type="text" class="form-control" placeholder="new Seller imagePath" [(ngModel)]="sellerImagePath" />
 
-      <button type="button" class="btn btn-default" (click)="onAddSeller()">Add seller</button>
-
-
-<div *ngIf="sellerSelected">
-    <h1>sellected seller</h1> 
-    <h2>{{seller.name}}</h2>
-    <h2>{{seller.category}}</h2>
-    <img src="{{seller.imagePath}}" alt="Image of the seller" style="max-width: 128px; max-height:128px;" />
-    <h1>products from sellected seller</h1>
-    <button class="btn  btn-outline-primary"  (click)="setTop10()">top10</button>
-    <button class="btn  btn-outline-primary" (click)="setAllproducts()">all products</button>
-    <div *ngIf="top10">
-      <ul>
-        <div *ngFor="let p of sellerProduct; let i = index" >
-        <li *ngIf="i<10">
-                  <table>
-                <tr>
-                    <th>product Id: {{p.id}}</th>
-                    <td>product name: {{p.name}}</td>
-                </tr>
-                <tr>
-                    <th rowspan="4"><img src="{{p.imagePath}}" alt="Image of the product" style="max-width: 128px; max-height:128px;" /></th>
-                    <td>price: {{p.price}}</td>
-                </tr>
-                <tr>
-                    <td>sold {{p.quantitySold}}</td>
-                </tr>
-                <tr>
-                    <td>current stock: {{p.quantityInStock}}</td>
-                </tr>
-                <tr>
-                    <td><button class="btn  btn-outline-primary" (click)="editProduct(p)">Edit</button></td>
-                </tr>
-            </table>
-        </li>
-        </div>
-    </ul>
-    </div>
-    <div [hidden]="top10">
-      <ul>
-        <li *ngFor="let p of sellerProduct">
-            <table>
-                <tr>
-                    <th>product Id: {{p.id}}</th>
-                    <td>product name: {{p.name}}</td>
-                </tr>
-                <tr>
-                    <th rowspan="4"><img src="{{p.imagePath}}" alt="Image of the product" style="max-width: 128px; max-height:128px;" /></th>
-                    <td>price: {{p.price}}</td>
-                </tr>
-                <tr>
-                    <td>sold {{p.quantitySold}}</td>
-                </tr>
-                <tr>
-                    <td>current stock: {{p.quantityInStock}}</td>
-                </tr>
-                <tr>
-                    <td><button class="btn  btn-outline-primary" (click)="editProduct(p)">Edit</button></td>
-                </tr>
-            </table>
-
-        </li>
-    </ul>
-  </div>
-    
     <div *ngIf="sellerSelected">
-    <div class="float-right">
+      <div class="float-left">
+        <img src="{{seller.imagePath}}" alt="Image of the seller" style="max-width: 220px; max-height:220px;" />
+      </div>
+      <h2>{{seller.name}}</h2>
+      <h3>{{seller.category}}</h3>
+      <br><br><br><br>
+
+      <div class="float-right">
         <button class="btn  btn-outline-primary" (click)="addProduct()">Add a new Product</button>
       </div>
-</div>
+      <div ng-hide="sellerProduct > 0">
+        <ngb-tabset>
+          <ngb-tab>
+            <template ngbTabTitle><b>All products</b></template>
+            <template ngbTabContent>
+              <div *ngFor="let p of sellerProduct">
+                <div class="col-sm-6 col-md-3">
+                  <div class="thumbnail">
+                    <img src="{{p.imagePath}}"  id='fallback' alt="Image of the product"  (click)="editProduct(p)" style="max-width: 200px; max-height:200px;"/>
+                  </div>
+
+                  <div class="caption">
+                    <h3>{{p.name}}</h3>
+                    <p>price = {{p.price}}, sold = {{p.quantitySold}}</p>
+                    <p>
+                      <a href="#" class="btn btn-primary" role="button">View</a>
+                      <a href="#" class="btn btn-default" (click)="editProduct(p)" role=" button">Edit</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </ngb-tab>
+          <ngb-tab>
+            <template ngbTabTitle><b>Top 10</b></template>
+            <template ngbTabContent>
+                  <div *ngFor="let p of sellerProduct; let i = index">
+                    <div *ngIf="i<10">
+
+
+                    <div class="col-sm-6 col-md-3">
+                      <div class="thumbnail">
+                        <img src="{{p.imagePath}}" id='fallback' alt="Image of the product"  (click)="editProduct(p)" style="max-width: 200px; max-height:200px;"/>
+                      </div>
+
+                      <div class="caption">
+                        <h3>{{p.name}}</h3>
+                        <p>price = {{p.price}}, sold = {{p.quantitySold}}</p>
+                        <p>
+                          <a href="#" class="btn btn-primary" role="button">View</a>
+                          <a href="#" class="btn btn-default" (click)="editProduct(p)" role=" button">Edit</a>
+                        </p>
+                      </div>
+                    </div>
+  <!--
+                      <img src="{{p.imagePath}}" alt="Image of the product"  (click)="editProduct(p)" style="max-width: 200px; max-height:200px;" />
+                      <div class="caption">
+                        <p>{{p.name}}, price = {{p.price}}, sold = {{p.quantitySold}}
+                        <button class="btn  btn-outline-primary" (click)="editProduct(p)">Edit</button></p>
+                      </div>-->
+
+
+                    </div>
+                  </div>
+            </template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
 
     </div>
   </div>
