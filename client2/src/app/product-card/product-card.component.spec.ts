@@ -22,6 +22,14 @@ describe('ProductCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductCardComponent);
     component = fixture.componentInstance;
+    component.product = {
+      name: "name",
+      price: 0,
+      quantityInStock: 0,
+      quantitySold: 100,
+      imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
+      id: 7
+    };
     fixture.detectChanges();
   });
 

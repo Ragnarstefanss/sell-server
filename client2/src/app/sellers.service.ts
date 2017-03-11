@@ -21,12 +21,13 @@ export interface Seller {
 
 @Injectable()
 export class SellersService {
-
+private statusNr: number;
   constructor(private http: Http) { }
 
   getSellers() : Observable<Seller[]> {
     return this.http.get('http://localhost:5000/api/sellers')
     .map(response => {
+      this.statusNr = response.status;
       return <Seller[]> response.json();
     });
   }
@@ -39,7 +40,7 @@ export class SellersService {
       }
     return this.http.post('http://localhost:5000/api/sellers',param)
       .map(response => {
-        console.log()
+        this.statusNr = response.status;
       return <Seller> response.json();
     });
   }
@@ -47,6 +48,7 @@ export class SellersService {
   getSellerById(id: number): Observable<Seller> {
     return this.http.get(`http://localhost:5000/api/sellers/${id}`)
     .map(response => {
+      this.statusNr = response.status;
       return <Seller> response.json();
     });
   }
@@ -54,6 +56,7 @@ export class SellersService {
   getSellerProducts(id: number) : Observable<SellerProduct[]> {
       return this.http.get(`http://localhost:5000/api/sellers/${id}/products`)
       .map(response => {
+        this.statusNr = response.status;
         return <SellerProduct[]> response.json();
       });
   }
@@ -72,6 +75,7 @@ export class SellersService {
     return this.http.put(`http://localhost:5000/api/sellers/${SellerId}`,param)
       .map(response => {
         console.log()
+        this.statusNr = response.status;
       return <Seller> response.json();
     });
   }
@@ -87,6 +91,7 @@ export class SellersService {
     return this.http.post(`http://localhost:5000/api/sellers/${id}/products`,param)
       .map(response => {
         console.log()
+        this.statusNr = response.status;
       return <SellerProduct> response.json();
     });
   }
@@ -108,6 +113,7 @@ export class SellersService {
     return this.http.put(`http://localhost:5000/api/sellers/${SellerId}/products/${oldId}`,param)
       .map(response => {
         console.log()
+        this.statusNr = response.status;
       return <SellerProduct> response.json();
     });
   }
