@@ -41,7 +41,12 @@ export class AppComponent implements OnInit {
   onGetProducts(num: number) {
     console.log("get products now");
     this.service.getSellerProducts(num).subscribe((result) => {
-      console.log("length is " + result.length);
+      if(result.length > 0) {
+        this.showProducts = true;
+      }
+      else {
+        this.showProducts = false;
+      }
       this.sellerProduct = result;
       this.sellerProduct = this.sellerProduct.sort(function(a, b) {
         return a.quantitySold < b.quantitySold ? 1 : -1
