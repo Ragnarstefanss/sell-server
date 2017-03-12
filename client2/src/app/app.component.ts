@@ -3,7 +3,7 @@ import { SellersService, SellerProduct, Seller } from './sellers.service';
 import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { SellerDlgComponent } from './seller-dlg/seller-dlg.component';
 import { ProductCardComponent } from './product-card/product-card.component';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastrService } from 'toastr-ng2';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   newProduct: SellerProduct;
   showProducts: Boolean;
 
-  constructor(private modalService: NgbModal, private service: SellersService) {
+  constructor(private modalService: NgbModal, private service: SellersService, private toastrService: ToastrService) {
     this.sellerName = "";
     this.sellerCatagory = "";
     this.sellerImagePath = "";
@@ -58,7 +58,6 @@ export class AppComponent implements OnInit {
   }
 
   getSeller(num: number) {
-    console.log(num);
 
     var successGetSeller = result => {
       this.seller = result;
@@ -94,8 +93,9 @@ export class AppComponent implements OnInit {
 
   onGetSellers() {
     var successGetSellers = result => {
+      this.toastrService.success('Hello world!', 'Toastr fun!');
       this.sellerlist = result;
-      console.log(JSON.stringify(this.sellerlist));
+      //console.log(JSON.stringify(this.sellerlist));
     };
     var errorHandler = (err) => {
       // TODO: display toastr!

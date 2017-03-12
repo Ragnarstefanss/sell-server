@@ -8,7 +8,10 @@ import { SellersService } from './sellers.service';
 import { SellerDlgComponent } from './seller-dlg/seller-dlg.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { Ng2ImgFallbackModule } from 'ng2-img-fallback';
-import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { ToastrModule } from 'toastr-ng2';
+import { CommonModule } from '@angular/common';
+
+class MainModule {}
 
 @NgModule({
   declarations: [
@@ -18,7 +21,8 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
   ],
   imports: [
     BrowserModule,
-    ToastModule.forRoot(),
+    CommonModule,
+    ToastrModule.forRoot(), // ToastrModule added
     FormsModule,
     Ng2ImgFallbackModule,
     HttpModule,
