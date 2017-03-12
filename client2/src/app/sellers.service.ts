@@ -4,12 +4,12 @@ import { Observable } from'rxjs/Observable';
 import 'rxjs/rx';
 
 export interface SellerProduct {
-  id: number;
-  name: string;
-  price: number;
-  quantitySold: number;
-  quantityInStock: number;
-  imagePath: string;
+  id: number,
+  name: string,
+  price: number,
+  quantitySold: number,
+  quantityInStock: number,
+  imagePath: string,
 }
 
 export interface Seller {
@@ -21,7 +21,7 @@ export interface Seller {
 
 @Injectable()
 export class SellersService {
-private statusNr: number;
+statusNr: number;
   constructor(private http: Http) { }
 
   getSellers() : Observable<Seller[]> {

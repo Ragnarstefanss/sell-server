@@ -15,15 +15,15 @@ export class AppComponent implements OnInit {
   products: SellerProduct[];
 
   sellerlist: Seller[];
-  private seller: Seller;
-  private sellerProduct: SellerProduct[];
-  private sellerSelected: Boolean;
+  seller: Seller;
+  sellerProduct: SellerProduct[];
+  sellerSelected: Boolean;
   //private newSeller : Seller;
   sellerName: string;
   sellerCatagory: string;
   sellerImagePath : string;
-  private newProduct : SellerProduct;
-  private top10 : boolean;
+  newProduct : SellerProduct;
+  top10 : boolean;
 
 
   constructor(private modalService : NgbModal, private service : SellersService) {
@@ -110,6 +110,7 @@ export class AppComponent implements OnInit {
       {
         Exists = true;
         oldId = this.sellerlist[s].id;
+        console.log("seller exists");
       }
     }
     if(Exists == false)
@@ -128,11 +129,11 @@ export class AppComponent implements OnInit {
     });
   }
   }
-
+/*
   onProductEdited(p: SellerProduct) {
     console.log(p);
   }
-
+*/
   addSeller() {
     const modalInstance = this.modalService.open(SellerDlgComponent);
     var newSeller : Seller;
@@ -168,7 +169,9 @@ export class AppComponent implements OnInit {
     var oldId: number;
     if(newProduct.id != 0)
     {
+      console.log("id is bigger than 0 so exist = true");
       Exists = true;
+      oldId = newProduct.id;
     }
       for(var s in this.sellerProduct)
     {
@@ -188,7 +191,7 @@ export class AppComponent implements OnInit {
   }
   else
   {
-    console.log("seller exists modifying now");
+    console.log("seller exists modifying now old id is "+ oldId);
         this.service.updateProduct(this.seller.id,oldId,newProduct).subscribe((result) => {
       console.log("product with name "+ result.name + "was modified");
       this.onGetProducts(this.seller.id);
