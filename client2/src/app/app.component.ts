@@ -78,13 +78,11 @@ export class AppComponent implements OnInit {
     };
 
     var errorGetSeller = (err) => {
-      // TODO: display toastr!
-      console.log("Something failed in getSellerById");
+      this.toastrService.error('Could not get this seller', 'Failed');
     }
 
     var errorGetSellerProducts = (err) => {
-      // TODO: display toastr!
-      console.log("Something failed in getSellerProducts");
+      this.toastrService.error('Could not get seller products', 'Failed');
     }
 
     this.service.getSellerById(num).subscribe(successGetSeller, errorGetSeller);
@@ -93,13 +91,11 @@ export class AppComponent implements OnInit {
 
   onGetSellers() {
     var successGetSellers = result => {
-      this.toastrService.success('Hello world!', 'Toastr fun!');
       this.sellerlist = result;
       //console.log(JSON.stringify(this.sellerlist));
     };
     var errorHandler = (err) => {
-      // TODO: display toastr!
-      console.log("Something failed in getSellers");
+      this.toastrService.error('Could not get seller list', 'Failed');
     }
     this.service.getSellers().subscribe(successGetSellers, errorHandler);
     this.sellerSelected = false;
