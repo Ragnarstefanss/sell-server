@@ -28,7 +28,7 @@
 
       <div *ngIf="sellerSelected">
         <div class="float-left">
-          <img src="{{seller.imagePath}}" alt="Image of the seller" style="max-width: 220px; max-height:220px;" />
+          <img src="{{seller.imagePath}}" src-fallback="{{ workingPlaceholder }}" alt="Image of the seller" style="max-width: 220px; max-height:220px;" />
         </div>
         <h2>{{seller.name}}</h2>
         <h3>{{seller.category}}</h3>
