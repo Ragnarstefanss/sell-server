@@ -3,12 +3,14 @@ import { SellersService, SellerProduct, Seller } from './sellers.service';
 import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { SellerDlgComponent } from './seller-dlg/seller-dlg.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
+
 export class AppComponent implements OnInit {
   title = 'Söluaðilar!';
   workingPlaceholder = 'http://euronoticia.com/img/missing.jpg';
@@ -24,7 +26,6 @@ export class AppComponent implements OnInit {
   sellerImagePath: string;
   newProduct: SellerProduct;
   showProducts: Boolean;
-
 
   constructor(private modalService: NgbModal, private service: SellersService) {
     this.sellerName = "";
@@ -174,8 +175,6 @@ export class AppComponent implements OnInit {
   }
 
   onAddProduct(newProduct: SellerProduct) {
-    console.log("product is");
-    console.log(newProduct);
     var Exists: boolean;
     Exists = false;
     var oldId: number;
