@@ -44,3 +44,18 @@ sellers service
 		test product with non existing seller id
 		test if response Product and getSellerProducts(id) and check if the product with the same productId 
 		as the response product are the same
+
+app.component
+
+	onGetSellers()
+	onGetProducts(num : number)
+	getSeller(num: number)
+	
+	onAddSeller()
+	addSeller() 
+	onAddProduct(newProduct: SellerProduct)
+	editProduct(product: SellerProduct)
+	addProduct()
+	setTop10()
+	setAllproducts()
+

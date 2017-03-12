@@ -27,10 +27,16 @@ describe('SellerDlgComponent', () => {
         imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
         id: 7
     };
+    component.onOk();
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create and submit the seller', () => {
+    component.onOk();
+    expect(component).toBeTruthy();
+  });
+    it('should create and then dissmiss', () => {
+    component.onCancel();
     expect(component).toBeTruthy();
   });
 });

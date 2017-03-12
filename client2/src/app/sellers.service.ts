@@ -69,12 +69,14 @@ statusNr: number;
         imagePath: upSeller.imagePath
       }
       //test
+      
       this.getSellerById(SellerId).subscribe((result) => {
         console.log("id "+ SellerId + "coresponds to the name "+result.name);
       });
+      console.log("bleh bleh"); 
     return this.http.put(`http://localhost:5000/api/sellers/${SellerId}`,param)
       .map(response => {
-        console.log()
+        console.log("bleh response is "+ JSON.stringify(<Seller> response.json()));
         this.statusNr = response.status;
       return <Seller> response.json();
     });
