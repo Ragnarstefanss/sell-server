@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { SellersService } from './sellers.service';
 import { SellerDlgComponent } from './seller-dlg/seller-dlg.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { Ng2ImgFallbackModule } from 'ng2-img-fallback';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
   imports: [
     BrowserModule,
     FormsModule,
+    Ng2ImgFallbackModule,
     HttpModule,
     NgbModule.forRoot()
   ],

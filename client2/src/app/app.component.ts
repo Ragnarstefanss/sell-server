@@ -11,7 +11,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
 })
 export class AppComponent implements OnInit {
   title = 'Söluaðilar!';
-
+  workingPlaceholder = 'http://euronoticia.com/img/missing.jpg';
   products: SellerProduct[];
 
   sellerlist: Seller[];
