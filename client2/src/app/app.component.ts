@@ -83,6 +83,7 @@ export class AppComponent implements OnInit {
   onGetSellers(){
     var successGetSellers = result => {
       this.sellerlist = result;
+      console.log(JSON.stringify(this.sellerlist));
     };
     var errorHandler = (err) => {
       // TODO: display toastr!
@@ -102,6 +103,11 @@ export class AppComponent implements OnInit {
       name: this.sellerName,
       category: this.sellerCatagory,
       imagePath: this.sellerImagePath
+    }
+    if(newSeller.name == null || newSeller.name == "")
+    {
+      console.log("seller name is reqiuered");
+      return;
     }
     for(var s in this.sellerlist)
     {
@@ -145,7 +151,7 @@ export class AppComponent implements OnInit {
       name: "Ragnar",
       category: "undefined",
       imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
-      id: 7
+      id: 0
     };
 
     modalInstance.result.then(obj => {

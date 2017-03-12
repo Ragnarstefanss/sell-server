@@ -36,4 +36,12 @@ describe('ProductCardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should create and submit the seller', () => {
+    component.onOk();
+    expect(component).toBeTruthy();
+  });
+    it('should create and then dissmiss', () => {
+    component.onCancel();
+    expect(component).toBeTruthy();
+  });
 });
