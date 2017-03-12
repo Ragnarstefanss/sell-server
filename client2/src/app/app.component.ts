@@ -1,4 +1,4 @@
-import { Component, OnInit,  Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SellersService, SellerProduct, Seller } from './sellers.service';
 import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { SellerDlgComponent } from './seller-dlg/seller-dlg.component';
@@ -21,12 +21,12 @@ export class AppComponent implements OnInit {
   //private newSeller : Seller;
   sellerName: string;
   sellerCatagory: string;
-  sellerImagePath : string;
-  newProduct : SellerProduct;
-  top10 : boolean;
+  sellerImagePath: string;
+  newProduct: SellerProduct;
+  showProducts: Boolean;
 
 
-  constructor(private modalService : NgbModal, private service : SellersService) {
+  constructor(private modalService: NgbModal, private service: SellersService) {
     this.sellerName = "";
     this.sellerCatagory = "";
     this.sellerImagePath = "";
@@ -35,23 +35,23 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.onGetSellers();
-    this.top10 = false;
+    this.showProducts = false;
   };
 
-  onGetProducts(num : number)
-{
-  console.log("get products now");
-   this.service.getSellerProducts(num).subscribe((result) => {
-        this.sellerProduct = result;
-        this.sellerProduct = this.sellerProduct.sort(function(a,b){
-          return a.quantitySold < b.quantitySold ? 1 : -1
-        });
-        },(err) => {
+  onGetProducts(num: number) {
+    console.log("get products now");
+    this.service.getSellerProducts(num).subscribe((result) => {
+      console.log("length is " + result.length);
+      this.sellerProduct = result;
+      this.sellerProduct = this.sellerProduct.sort(function(a, b) {
+        return a.quantitySold < b.quantitySold ? 1 : -1
+      });
+    }, (err) => {
       console.log("Something failed in getSellerProducts");
     });
-}
+  }
 
-  getSeller(num: number){
+  getSeller(num: number) {
     console.log(num);
 
     var successGetSeller = result => {
@@ -60,10 +60,16 @@ export class AppComponent implements OnInit {
     };
 
     var successGetSellerProducts = result => {
-        this.sellerProduct = result;
-          this.sellerProduct = this.sellerProduct.sort(function(a,b){
-          return a.quantitySold < b.quantitySold ? 1 : -1
-        });
+      if(result.length > 0) {
+        this.showProducts = true;
+      }
+      else {
+        this.showProducts = false;
+      }
+      this.sellerProduct = result;
+      this.sellerProduct = this.sellerProduct.sort(function(a, b) {
+        return a.quantitySold < b.quantitySold ? 1 : -1
+      });
     };
 
     var errorGetSeller = (err) => {
@@ -80,7 +86,7 @@ export class AppComponent implements OnInit {
     this.service.getSellerProducts(num).subscribe(successGetSellerProducts, errorGetSellerProducts);
   }
 
-  onGetSellers(){
+  onGetSellers() {
     var successGetSellers = result => {
       this.sellerlist = result;
       console.log(JSON.stringify(this.sellerlist));
@@ -93,8 +99,8 @@ export class AppComponent implements OnInit {
     this.sellerSelected = false;
   }
 
-  onAddSeller(){
-    var newSeller : Seller;
+  onAddSeller() {
+    var newSeller: Seller;
     var Exists: boolean;
     Exists = false;
     var oldId: number;
@@ -104,6 +110,7 @@ export class AppComponent implements OnInit {
       category: this.sellerCatagory,
       imagePath: this.sellerImagePath
     }
+<<<<<<< HEAD
     if(newSeller.name == null || newSeller.name == "")
     {
       console.log("seller name is reqiuered");
@@ -114,41 +121,39 @@ export class AppComponent implements OnInit {
       //console.log("S id is "+ this.sellerlist[s].id +" and S.name is "+this.sellerlist[s].name);
       if(this.sellerlist[s].name == this.sellerName)
       {
+=======
+    for (var s in this.sellerlist) {
+      if (this.sellerlist[s].name == this.sellerName) {
+>>>>>>> 74952160d30113db5a0e2e5572d198d7db268d1b
         Exists = true;
         oldId = this.sellerlist[s].id;
         console.log("seller exists");
       }
     }
-    if(Exists == false)
-    {
-       this.service.postSeller(newSeller).subscribe((result) => {
-      console.log("new seller with name "+ result.name + "was added");
-      this.onGetSellers();
-    });
-  }
-  else
-  {
+    if (Exists == false) {
+      this.service.postSeller(newSeller).subscribe((result) => {
+        console.log("new seller with name " + result.name + "was added");
+        this.onGetSellers();
+      });
+    }
+    else {
       console.log("seller exists modifying now");
-        this.service.uppdateSeller(oldId,newSeller).subscribe((result) => {
-      console.log("seller with name "+ result.name + "was modified");
-      this.onGetSellers();
-    });
+      this.service.uppdateSeller(oldId, newSeller).subscribe((result) => {
+        console.log("seller with name " + result.name + "was modified");
+        this.onGetSellers();
+      });
+    }
   }
-  }
-/*
-  onProductEdited(p: SellerProduct) {
-    console.log(p);
-  }
-*/
+
   addSeller() {
     const modalInstance = this.modalService.open(SellerDlgComponent);
-    var newSeller : Seller;
+    var newSeller: Seller;
     var Exists: boolean;
     Exists = false;
     var oldId: number;
 
     modalInstance.componentInstance.seller = {
-      name: "Ragnar",
+      name: "",
       category: "undefined",
       imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
       id: 0
@@ -166,52 +171,46 @@ export class AppComponent implements OnInit {
       console.log(err);
     });
   }
-  onAddProduct(newProduct: SellerProduct)
-  {
+
+  onAddProduct(newProduct: SellerProduct) {
     console.log("product is");
     console.log(newProduct);
     var Exists: boolean;
     Exists = false;
     var oldId: number;
-    if(newProduct.id != 0)
-    {
+    if (newProduct.id != 0) {
       console.log("id is bigger than 0 so exist = true");
       Exists = true;
       oldId = newProduct.id;
     }
-      for(var s in this.sellerProduct)
-    {
+    for (var s in this.sellerProduct) {
       //console.log("S id is "+ this.sellerProduct[s].id +" and S.name is "+this.sellerProduct[s].name);
-      if(this.sellerProduct[s].name == newProduct.name)
-      {
+      if (this.sellerProduct[s].name == newProduct.name) {
         Exists = true;
         oldId = this.sellerProduct[s].id;
       }
     }
-    if(Exists == false)
-    {
-        this.service.postProduct(this.seller.id,newProduct).subscribe((result) => {
-      console.log("new product with name "+ result.name + "was added");
-      this.onGetProducts(this.seller.id);
-    });
-  }
-  else
-  {
-    console.log("seller exists modifying now old id is "+ oldId);
-        this.service.updateProduct(this.seller.id,oldId,newProduct).subscribe((result) => {
-      console.log("product with name "+ result.name + "was modified");
-      this.onGetProducts(this.seller.id);
-    });
-  }
+    if (Exists == false) {
+      this.service.postProduct(this.seller.id, newProduct).subscribe((result) => {
+        console.log("new product with name " + result.name + "was added");
+        this.onGetProducts(this.seller.id);
+      });
+    }
+    else {
+      console.log("seller exists modifying now old id is " + oldId);
+      this.service.updateProduct(this.seller.id, oldId, newProduct).subscribe((result) => {
+        console.log("product with name " + result.name + "was modified");
+        this.onGetProducts(this.seller.id);
+      });
+    }
   }
 
-  editProduct(product: SellerProduct)
-  {
+  editProduct(product: SellerProduct) {
     console.log("edit product is");
     console.log(product);
     const modalInstance = this.modalService.open(ProductCardComponent);
     var oldId: number;
-    var newProduct : SellerProduct;
+    var newProduct: SellerProduct;
 
     modalInstance.componentInstance.product = {
       name: product.name,
@@ -222,7 +221,7 @@ export class AppComponent implements OnInit {
       id: product.id
     };
     modalInstance.componentInstance.edit = true;
-       modalInstance.result.then(obj => {
+    modalInstance.result.then(obj => {
       console.log("Dialog was closed using OK");
       console.log(obj);
       newProduct = {
@@ -240,12 +239,12 @@ export class AppComponent implements OnInit {
       console.log("Dialog was cancelled");
       console.log(err);
     });
-    }
-  
-  
-    addProduct() {
+  }
+
+
+  addProduct() {
     const modalInstance = this.modalService.open(ProductCardComponent);
-    var newProduct : SellerProduct;
+    var newProduct: SellerProduct;
     modalInstance.componentInstance.product = {
       name: "name",
       price: 0,
@@ -272,14 +271,5 @@ export class AppComponent implements OnInit {
       console.log(err);
     });
   }
-  
-  setTop10()
-  {
-    this.top10 = true;
-  }
-  setAllproducts()
-  {
-    this.top10 = false;
-  }
 
-  }
+}

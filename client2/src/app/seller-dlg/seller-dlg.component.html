@@ -1,6 +1,6 @@
 <div class="modal-header">
-<h4 class="modal-title">Create a new user</h4>
-<button type="button" class="close" aria-label="Close" (click)="onCancel()">
+  <h4 class="modal-title">Create a new user</h4>
+  <button type="button" class="close" aria-label="Close" (click)="onCancel()">
   <span aria-hidden="true">&times;</span>
 </button>
 </div>
@@ -9,15 +9,15 @@
 <div class="modal-body">
   <div class="form-group">
     <label class="control-label">Name</label>
-    <input type="text" class="form-control" name="name" [(ngModel)]="seller.name" autofocus=""/>
+    <input type="text" class="form-control" name="name" [(ngModel)]="seller.name" autofocus="" />
   </div>
   <div class="form-group">
     <label class="control-label">Category</label>
-    <input type="text" class="form-control" name="category" [(ngModel)]="seller.category"  placeholder="enter category here"/>
+    <input type="text" class="form-control" name="category" [(ngModel)]="seller.category" placeholder="enter category here" />
   </div>
   <div class="form-group">
     <label class="control-label">Image url</label>
-    <input type="text" class="form-control" name="imagePath" [(ngModel)]="seller.imagePath" placeholder="enter url path here"/>
+    <input type="text" class="form-control" name="imagePath" [(ngModel)]="seller.imagePath" placeholder="enter url path here" />
   </div>
 </div>
 
