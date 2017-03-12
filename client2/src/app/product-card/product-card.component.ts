@@ -26,15 +26,14 @@ export class ProductCardComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
-    
+
   }
 
-   onCancel() {
+  onCancel() {
     this.activeModal.dismiss();
   }
 
-  onOk() 
-  {
+  onOk() {
     this.activeModal.close(this.product);
   }
 }
