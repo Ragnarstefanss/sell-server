@@ -110,7 +110,7 @@ export class AppComponent implements OnInit {
       category: this.sellerCatagory,
       imagePath: this.sellerImagePath
     }
-<<<<<<< HEAD
+
     if(newSeller.name == null || newSeller.name == "")
     {
       console.log("seller name is reqiuered");
@@ -121,10 +121,6 @@ export class AppComponent implements OnInit {
       //console.log("S id is "+ this.sellerlist[s].id +" and S.name is "+this.sellerlist[s].name);
       if(this.sellerlist[s].name == this.sellerName)
       {
-=======
-    for (var s in this.sellerlist) {
-      if (this.sellerlist[s].name == this.sellerName) {
->>>>>>> 74952160d30113db5a0e2e5572d198d7db268d1b
         Exists = true;
         oldId = this.sellerlist[s].id;
         console.log("seller exists");
