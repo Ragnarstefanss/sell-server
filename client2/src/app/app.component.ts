@@ -14,13 +14,12 @@ import { ToastrService } from 'toastr-ng2';
 export class AppComponent implements OnInit {
   title = 'Söluaðilar!';
   workingPlaceholder = 'http://euronoticia.com/img/missing.jpg';
-  products: SellerProduct[];
 
+  products: SellerProduct[];
   sellerlist: Seller[];
   seller: Seller;
   sellerProduct: SellerProduct[];
   sellerSelected: Boolean;
-  //private newSeller : Seller;
   sellerName: string;
   sellerCatagory: string;
   sellerImagePath: string;
@@ -33,28 +32,34 @@ export class AppComponent implements OnInit {
     this.sellerImagePath = "";
   }
 
-
   ngOnInit() {
     this.onGetSellers();
     this.showProducts = false;
   };
 
   onGetProducts(num: number) {
-    console.log("get products now");
-    this.service.getSellerProducts(num).subscribe((result) => {
-      if(result.length > 0) {
-        this.showProducts = true;
-      }
-      else {
-        this.showProducts = false;
-      }
-      this.sellerProduct = result;
-      this.sellerProduct = this.sellerProduct.sort(function(a, b) {
-        return a.quantitySold < b.quantitySold ? 1 : -1
-      });
-    }, (err) => {
+    var successSellerProducts = result => {
+
+        if ( result.length > 0 ) {
+          this.showProducts = true;
+        }
+        else {
+          this.showProducts = false;
+        }
+
+        this.sellerProduct = result;
+
+        this.sellerProduct = this.sellerProduct.sort(function(a, b) {
+          return a.quantitySold < b.quantitySold ? 1 : -1
+        });
+    }
+
+    var errorSellerProducts = (err) => {
+      //TODO
       console.log("Something failed in getSellerProducts");
-    });
+    }
+
+    this.service.getSellerProducts(num).subscribe(successSellerProducts, errorSellerProducts);
   }
 
   getSeller(num: number) {
@@ -65,7 +70,7 @@ export class AppComponent implements OnInit {
     };
 
     var successGetSellerProducts = result => {
-      if(result.length > 0) {
+      if (result.length > 0) {
         this.showProducts = true;
       }
       else {
@@ -113,16 +118,13 @@ export class AppComponent implements OnInit {
       imagePath: this.sellerImagePath
     }
 
-    if(newSeller.name == null || newSeller.name == "")
-    {
+    if (newSeller.name == null || newSeller.name == "") {
       console.log("seller name is reqiuered");
       return;
     }
-    for(var s in this.sellerlist)
-    {
+    for (var s in this.sellerlist) {
       //console.log("S id is "+ this.sellerlist[s].id +" and S.name is "+this.sellerlist[s].name);
-      if(this.sellerlist[s].name == this.sellerName)
-      {
+      if (this.sellerlist[s].name == this.sellerName) {
         Exists = true;
         oldId = this.sellerlist[s].id;
         console.log("seller exists");
@@ -187,7 +189,7 @@ export class AppComponent implements OnInit {
       }
     }
     if (Exists == false) {
-      console.log("image path is "+ newProduct.imagePath);
+      console.log("image path is " + newProduct.imagePath);
       this.service.postProduct(this.seller.id, newProduct).subscribe((result) => {
         console.log("new product with name " + result.name + "was added");
         this.onGetProducts(this.seller.id);
