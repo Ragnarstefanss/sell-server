@@ -176,7 +176,8 @@ app.post("/api/sellers/:id/products", (req, res) => {
 
 	// Calculate new ID (using super complicated method):
 	var newId = _.maxBy(products, (p) => p.product.id).product.id + 1;
-	newProduct = createProduct(seller.id, newId, req.body.name, req.body.price, 0, req.body.quantityInStock, req.body.path);
+	newProduct = createProduct(seller.id, newId, req.body.name, req.body.price, 0, req.body.quantityInStock, req.body.imagePath);
+	console.log("path is"+ req.body.imagePath);
 	products.push(newProduct);
 
 	// Success!

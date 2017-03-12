@@ -187,6 +187,7 @@ export class AppComponent implements OnInit {
       }
     }
     if (Exists == false) {
+      console.log("image path is "+ newProduct.imagePath);
       this.service.postProduct(this.seller.id, newProduct).subscribe((result) => {
         console.log("new product with name " + result.name + "was added");
         this.onGetProducts(this.seller.id);
