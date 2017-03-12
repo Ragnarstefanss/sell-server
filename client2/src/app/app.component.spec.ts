@@ -668,7 +668,7 @@ describe('AppComponent', () => {
 
     });
   })
-
+/*
   describe("functions that test the variable top10", () => {
 
 
@@ -688,7 +688,7 @@ describe('AppComponent', () => {
       expect(apps.top10).toBe(false);
     });
   })
-
+*/
 });
 
 

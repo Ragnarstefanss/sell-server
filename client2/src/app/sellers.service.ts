@@ -33,10 +33,11 @@ statusNr: number;
   }
 
   postSeller(newSeller: Seller): Observable<Seller>{
+    console.log("imagepath is "+ newSeller.imagePath);
     var param = {
         name: newSeller.name,
         category: newSeller.category,
-        imagePath: newSeller.imagePath
+        path: newSeller.imagePath
       }
     return this.http.post('http://localhost:5000/api/sellers',param)
       .map(response => {
