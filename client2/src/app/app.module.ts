@@ -11,7 +11,7 @@ import { Ng2ImgFallbackModule } from 'ng2-img-fallback';
 import { ToastrModule } from 'toastr-ng2';
 import { CommonModule } from '@angular/common';
 
-class MainModule {}
+class MainModule { }
 
 @NgModule({
   declarations: [
@@ -28,9 +28,9 @@ class MainModule {}
     HttpModule,
     NgbModule.forRoot()
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [SellersService],
   bootstrap: [AppComponent],
-  entryComponents: [SellerDlgComponent,ProductCardComponent]
+  entryComponents: [SellerDlgComponent, ProductCardComponent]
 })
 export class AppModule { }

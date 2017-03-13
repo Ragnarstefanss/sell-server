@@ -55,8 +55,7 @@ export class AppComponent implements OnInit {
     }
 
     var errorSellerProducts = (err) => {
-      //TODO
-      console.log("Something failed in getSellerProducts");
+
     }
 
     this.service.getSellerProducts(num).subscribe(successSellerProducts, errorSellerProducts);
