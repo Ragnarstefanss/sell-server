@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
     }
 
     var errorSellerProducts = (err) => {
-
+      this.toastrService.error('Could not get this seller products', 'Failed');
     }
 
     this.service.getSellerProducts(num).subscribe(successSellerProducts, errorSellerProducts);
@@ -118,7 +118,7 @@ export class AppComponent implements OnInit {
     }
 
     if (newSeller.name == null || newSeller.name == "") {
-      console.log("seller name is reqiuered");
+      this.toastrService.warning("seller name is required");
       return;
     }
     for (var s in this.sellerlist) {
@@ -126,19 +126,18 @@ export class AppComponent implements OnInit {
       if (this.sellerlist[s].name == this.sellerName) {
         Exists = true;
         oldId = this.sellerlist[s].id;
-        console.log("seller exists");
+        //this.toastrService.warning('User already exists!');
       }
     }
     if (Exists == false) {
       this.service.postSeller(newSeller).subscribe((result) => {
-        console.log("new seller with name " + result.name + "was added");
+        this.toastrService.success(result.name + ' was added to seller list', 'Success');
         this.onGetSellers();
       });
     }
     else {
-      console.log("seller exists modifying now");
       this.service.uppdateSeller(oldId, newSeller).subscribe((result) => {
-        console.log("seller with name " + result.name + "was modified");
+        this.toastrService.warning(result.name + " was modified");
         this.onGetSellers();
       });
     }
@@ -159,15 +158,12 @@ export class AppComponent implements OnInit {
     };
 
     modalInstance.result.then(obj => {
-      console.log("Dialog was closed using OK");
-      console.log(obj);
       this.sellerName = obj.name;
       this.sellerCatagory = obj.category;
       this.sellerImagePath = obj.imagePath;
       this.onAddSeller();
     }).catch(err => {
-      console.log("Dialog was cancelled");
-      console.log(err);
+      this.toastrService.warning("Dialog was cancelled");
     });
   }
 
@@ -176,7 +172,7 @@ export class AppComponent implements OnInit {
     Exists = false;
     var oldId: number;
     if (newProduct.id != 0) {
-      console.log("id is bigger than 0 so exist = true");
+      //console.log("id is bigger than 0 so exist = true");
       Exists = true;
       oldId = newProduct.id;
     }
@@ -188,24 +184,23 @@ export class AppComponent implements OnInit {
       }
     }
     if (Exists == false) {
-      console.log("image path is " + newProduct.imagePath);
       this.service.postProduct(this.seller.id, newProduct).subscribe((result) => {
-        console.log("new product with name " + result.name + "was added");
+        //TODO
+        this.toastrService.success('item was added to product list', 'Success');
         this.onGetProducts(this.seller.id);
       });
     }
     else {
       console.log("seller exists modifying now old id is " + oldId);
       this.service.updateProduct(this.seller.id, oldId, newProduct).subscribe((result) => {
-        console.log("product with name " + result.name + "was modified");
+        //TODO
+        this.toastrService.warning('item was modified');
         this.onGetProducts(this.seller.id);
       });
     }
   }
 
   editProduct(product: SellerProduct) {
-    console.log("edit product is");
-    console.log(product);
     const modalInstance = this.modalService.open(ProductCardComponent);
     var oldId: number;
     var newProduct: SellerProduct;
@@ -220,8 +215,6 @@ export class AppComponent implements OnInit {
     };
     modalInstance.componentInstance.edit = true;
     modalInstance.result.then(obj => {
-      console.log("Dialog was closed using OK");
-      console.log(obj);
       newProduct = {
         id: obj.id,
         name: obj.name,
@@ -230,12 +223,9 @@ export class AppComponent implements OnInit {
         quantitySold: obj.quantitySold,
         imagePath: obj.imagePath
       }
-      console.log("new product is");
-      console.log(newProduct);
       this.onAddProduct(newProduct);
     }).catch(err => {
-      console.log("Dialog was cancelled");
-      console.log(err);
+      this.toastrService.warning("Dialog was cancelled");
     });
   }
 
@@ -253,8 +243,6 @@ export class AppComponent implements OnInit {
     modalInstance.componentInstance.edit = false;
 
     modalInstance.result.then(obj => {
-      console.log("Dialog was closed using OK");
-      console.log(obj);
       newProduct = {
         id: 0,
         name: obj.name,
@@ -265,8 +253,7 @@ export class AppComponent implements OnInit {
       }
       this.onAddProduct(newProduct);
     }).catch(err => {
-      console.log("Dialog was cancelled");
-      console.log(err);
+      this.toastrService.warning("Dialog was cancelled");
     });
   }
 
