@@ -15,6 +15,7 @@ export class Seller {
 })
 export class SellerDlgComponent implements OnInit {
   seller: Seller;
+  edit:boolean;
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() { }

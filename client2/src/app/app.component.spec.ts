@@ -189,8 +189,8 @@ describe('AppComponent', () => {
         then: function(confirmCallback,cancelCallback) {
             //Store the callbacks for later when the user clicks on the OK or Cancel button of the dialog
             console.log("test result");
-            console.log("this is"+ JSON.stringify(this));
-            console.log("item is "+ JSON.stringify(fakeModal));
+         //   console.log("this is"+ JSON.stringify(this));
+            //console.log("item is "+ JSON.stringify(fakeModal));
             //fakeModal.close(fakeModal.componentInstance.seller);
             if(dialogType == "seller")
             {
@@ -207,16 +207,16 @@ describe('AppComponent', () => {
             
             this.confirmCallBack = confirmCallback;
             this.cancelCallback = cancelCallback;
-            console.log("confirm"+confirmCallback);
+            //console.log("confirm"+confirmCallback);
             if(dialogAction == "OK")
             {
               console.log("OK");
-              console.log("item is "+ JSON.stringify(fakeModal));
+             //console.log("item is "+ JSON.stringify(fakeModal));
               return fakeModal.close(this.results);
             }
             else
             {
-              return fakeModal.dismiss(this.results);
+              return fakeModal.dismiss();
             }
             //return this.item;
         },
@@ -231,18 +231,18 @@ describe('AppComponent', () => {
         console.log("test close");
              if(dialogType == "seller")
             {
-              console.log("item is "+ JSON.stringify(seller));
+        //      console.log("item is "+ JSON.stringify(seller));
               this.result.confirmCallBack( fakeModal.componentInstance.seller);
             }
             else
             {
-              console.log("item is "+ JSON.stringify(seller));
+        //      console.log("item is "+ JSON.stringify(seller));
               this.result.confirmCallBack( fakeModal.componentInstance.product);
             }
 
         //return this.seller;
     },
-    dismiss: function( type ) {
+    dismiss: function() {
     //The user clicked cancel on the modal dialog, call the stored cancel callback
     console.log("test cancel");
     return;
@@ -943,14 +943,7 @@ let newSeller= {
       dialogAction = "cancel";
       apps.onGetSellers();
       apps.addSeller();
-      //fakeModal.dismiss;
 
-      //console.log(mockModal);
-      console.log("apps" + JSON.stringify(apps.sellerlist));
-      console.log(apps.sellerName);
-      //fakeModal.close(newSeller);
-      console.log(apps.sellerName);
-      console.log("sellers list is"+ mockService.sellersList)
       expect(apps.sellerlist.length).toBe(3);
       //expect(apps.sellerName).toEqual("bleh");
       }));
@@ -1008,8 +1001,6 @@ let newSeller= {
       //fakeModal.dismiss;
 
       //console.log(mockModal);
-      console.log("apps" + JSON.stringify(apps.sellerProduct));
-      console.log("sellers list is"+ mockService.productList)
       expect(apps.sellerProduct.length).toBe(2);
       expect(apps.sellerProduct[1].name).toEqual("Ullarsokkar");
       }));
@@ -1056,11 +1047,6 @@ let newSeller= {
       //fakeModal.dismiss;
       apps.sellerProduct = [];
       //console.log(mockModal);
-      console.log("apps" + JSON.stringify(apps.sellerlist));
-      console.log(apps.sellerName);
-      //fakeModal.close(newSeller);
-      console.log(apps.sellerName);
-      console.log("sellers list is"+ mockService.productList)
       expect(apps.sellerProduct.length).toBe(0);
       //expect(apps.sellerName).toEqual("bleh");
       }));
@@ -1125,13 +1111,7 @@ let newSeller= {
       apps.getSeller(1);
       apps.editProduct(newProduct);
       //fakeModal.dismiss;
-      
-      //console.log(mockModal);
-      console.log("apps" + JSON.stringify(apps.sellerProduct));
-      //console.log(apps.sellerName);
-      //fakeModal.close(newSeller);
-      //console.log(apps.sellerName);
-      console.log("sellers list is"+ mockService.productList)
+   
       expect(apps.sellerProduct.length).toBe(1);
       expect(apps.sellerProduct[0].name).toEqual("Ullarsokkar");
       }));
@@ -1188,11 +1168,11 @@ let newSeller= {
       //fakeModal.dismiss;
       apps.sellerProduct = [];
       //console.log(mockModal);
-      console.log("apps" + JSON.stringify(apps.sellerlist));
-      console.log(apps.sellerName);
+      //console.log("apps" + JSON.stringify(apps.sellerlist));
+      //console.log(apps.sellerName);
       //fakeModal.close(newSeller);
-      console.log(apps.sellerName);
-      console.log("product list is"+ mockService.productList)
+      //console.log(apps.sellerName);
+      //console.log("product list is"+ mockService.productList)
       expect(apps.sellerProduct.length).toBe(0);
       //expect(apps.sellerName).toEqual("bleh");
       }));
