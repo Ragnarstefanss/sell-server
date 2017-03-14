@@ -20,19 +20,16 @@
           <tr>
             <td><a class="text-primary" (click)="getSeller(s.id)">{{s.name}}</a></td>
             <td>{{s.category}}</td>
-            <td>
           </tr>
         </tbody>
       </table>
 
 
       <div *ngIf="sellerSelected">
-        <div class="float-left">
-          <img src="{{seller.imagePath}}" alt="Image of the seller" src-fallback="{{ workingPlaceholder }}" style="max-width: 220px; max-height:220px;" />
-        </div>
+
         <h2>{{seller.name}}</h2>
-        <h3>{{seller.category}}</h3>
-        <br><br><br><br>
+        <h4>{{seller.category}}</h4>
+        <img src="{{seller.imagePath}}" alt="Image of the seller" src-fallback="{{ workingPlaceholder }}" style="width: 220px; height:220px;" />
 
         <div class="float-right">
           <button class="btn  btn-outline-primary" (click)="addProduct()">Add a new Product</button>
