@@ -1014,7 +1014,7 @@ let newSeller= {
       //console.log(apps.sellerName);
       console.log("sellers list is"+ mockService.productList)
       expect(apps.sellerProduct.length).toBe(2);
-      expect(apps.sellerProduct[1].name).toEqual("bleh");
+      expect(apps.sellerProduct[1].name).toEqual("Ullarsokkar");
       }));
 
       it("add product called and then clicked cancel ",inject([NgbModal], ( modalService: NgbModal) => {
