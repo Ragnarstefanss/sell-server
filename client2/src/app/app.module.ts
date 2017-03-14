@@ -8,6 +8,10 @@ import { SellersService } from './sellers.service';
 import { SellerDlgComponent } from './seller-dlg/seller-dlg.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { Ng2ImgFallbackModule } from 'ng2-img-fallback';
+import { ToastrModule } from 'toastr-ng2';
+import { CommonModule } from '@angular/common';
+
+class MainModule { }
 
 @NgModule({
   declarations: [
@@ -17,14 +21,16 @@ import { Ng2ImgFallbackModule } from 'ng2-img-fallback';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    ToastrModule.forRoot(), // ToastrModule added
     FormsModule,
     Ng2ImgFallbackModule,
     HttpModule,
     NgbModule.forRoot()
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [SellersService],
   bootstrap: [AppComponent],
-  entryComponents: [SellerDlgComponent,ProductCardComponent]
+  entryComponents: [SellerDlgComponent, ProductCardComponent]
 })
 export class AppModule { }

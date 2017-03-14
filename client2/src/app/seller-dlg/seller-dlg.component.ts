@@ -14,15 +14,10 @@ export class Seller {
   styleUrls: ['./seller-dlg.component.css']
 })
 export class SellerDlgComponent implements OnInit {
-
-
   seller: Seller;
-
-
   constructor(public activeModal: NgbActiveModal) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {  }
 
   onCancel() {
     this.activeModal.dismiss();

@@ -668,27 +668,27 @@ describe('AppComponent', () => {
 
     });
   })
-/*
-  describe("functions that test the variable top10", () => {
+  /*
+    describe("functions that test the variable top10", () => {
 
 
-    it("setTop10 is called top10 should be true ", () => {
-      const fixture = TestBed.createComponent(AppComponent);
-      const app = fixture.debugElement.componentInstance;
-      let apps = fixture.componentInstance;
-      apps.setTop10();
-      expect(apps.top10).toBe(true);
-    });
+      it("setTop10 is called top10 should be true ", () => {
+        const fixture = TestBed.createComponent(AppComponent);
+        const app = fixture.debugElement.componentInstance;
+        let apps = fixture.componentInstance;
+        apps.setTop10();
+        expect(apps.top10).toBe(true);
+      });
 
-    it("setAllproducts() is called top10 should be false ", () => {
-      const fixture = TestBed.createComponent(AppComponent);
-      const app = fixture.debugElement.componentInstance;
-      let apps = fixture.componentInstance;
-      apps.setAllproducts();
-      expect(apps.top10).toBe(false);
-    });
-  })
-*/
+      it("setAllproducts() is called top10 should be false ", () => {
+        const fixture = TestBed.createComponent(AppComponent);
+        const app = fixture.debugElement.componentInstance;
+        let apps = fixture.componentInstance;
+        apps.setAllproducts();
+        expect(apps.top10).toBe(false);
+      });
+    })
+  */
 });
 
 

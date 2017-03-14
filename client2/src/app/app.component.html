@@ -28,7 +28,7 @@
 
       <div *ngIf="sellerSelected">
         <div class="float-left">
-          <img src="{{seller.imagePath}}" alt="Image of the seller" style="max-width: 220px; max-height:220px;" />
+          <img src="{{seller.imagePath}}" alt="Image of the seller" src-fallback="{{ workingPlaceholder }}" style="max-width: 220px; max-height:220px;" />
         </div>
         <h2>{{seller.name}}</h2>
         <h3>{{seller.category}}</h3>
@@ -70,7 +70,7 @@
 
                     <div class="col-sm-6 col-md-3">
                       <div class="thumbnail">
-                        <img src="{{p.imagePath}}" id='fallback' alt="Image of the product"  (click)="editProduct(p)" style="max-width: 200px; max-height:200px;"/>
+                        <img src="{{p.imagePath}}" alt="Image of the product" src-fallback="{{ workingPlaceholder }}" (click)="editProduct(p)" style="max-width: 200px; max-height:200px;"/>
                       </div>
 
                       <div class="caption">
