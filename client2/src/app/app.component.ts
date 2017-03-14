@@ -104,7 +104,6 @@ export class AppComponent implements OnInit {
   onGetSellers() {
     var successGetSellers = result => {
       this.sellerlist = result;
-      //console.log(JSON.stringify(this.sellerlist));
     };
     var errorHandler = (err) => {
       this.toastrService.error('Could not get seller list', 'Failed');
@@ -131,11 +130,9 @@ export class AppComponent implements OnInit {
     }
 
     for (var s in this.sellerlist) {
-      //console.log("S id is "+ this.sellerlist[s].id +" and S.name is "+this.sellerlist[s].name);
       if (this.sellerlist[s].name == this.sellerName) {
         Exists = true;
         oldId = this.sellerlist[s].id;
-        //this.toastrService.warning('User already exists!');
       }
     }
     if (Exists == false) {
@@ -165,49 +162,31 @@ export class AppComponent implements OnInit {
       id: 0
     };
     modalInstance.result.then(obj => {
-      console.log("object is" +JSON.stringify(obj));
       this.sellerName = obj.name;
       this.sellerCatagory = obj.category;
       this.sellerImagePath = obj.imagePath;
-      console.log("object is" +JSON.stringify(obj));
       this.onAddSeller();
     })
-    /*.catch(err => {
-      this.toastrService.warning("Dialog was cancelled");
-    });
-    */
-    
-    
-    
   }
-    
-    editSeller(newSeller:Seller) {
+
+  editSeller(newSeller: Seller) {
     const modalInstance = this.modalService.open(SellerDlgComponent);
-    //var newSeller: Seller;
+
     var Exists: boolean;
     Exists = false;
     var oldId: number;
     modalInstance.componentInstance.seller = {
-      name:newSeller.name,
+      name: newSeller.name,
       category: newSeller.category,
       imagePath: newSeller.imagePath,
       id: 0
     };
     modalInstance.result.then(obj => {
-      console.log("object is" +JSON.stringify(obj));
       this.sellerName = obj.name;
       this.sellerCatagory = obj.category;
       this.sellerImagePath = obj.imagePath;
-      console.log("object is" +JSON.stringify(obj));
       this.onAddSeller();
     })
-    /*.catch(err => {
-      this.toastrService.warning("Dialog was cancelled");
-    });
-    */
-    
-    
-    
   }
 
   onAddProduct(newProduct: SellerProduct) {
@@ -215,12 +194,10 @@ export class AppComponent implements OnInit {
     Exists = false;
     var oldId: number;
     if (newProduct.id != 0) {
-      //console.log("id is bigger than 0 so exist = true");
       Exists = true;
       oldId = newProduct.id;
     }
     for (var s in this.sellerProduct) {
-      //console.log("S id is "+ this.sellerProduct[s].id +" and S.name is "+this.sellerProduct[s].name);
       if (this.sellerProduct[s].name == newProduct.name) {
         Exists = true;
         oldId = this.sellerProduct[s].id;
@@ -228,15 +205,12 @@ export class AppComponent implements OnInit {
     }
     if (Exists == false) {
       this.service.postProduct(this.seller.id, newProduct).subscribe((result) => {
-        //TODO
         this.toastrService.success('item was added to product list', 'Success');
         this.onGetProducts(this.seller.id);
       });
     }
     else {
-      console.log("seller exists modifying now old id is " + oldId);
       this.service.updateProduct(this.seller.id, oldId, newProduct).subscribe((result) => {
-        //TODO
         this.toastrService.warning('item was modified');
         this.onGetProducts(this.seller.id);
       });
@@ -269,11 +243,6 @@ export class AppComponent implements OnInit {
       }
       this.onAddProduct(newProduct);
     })
-    /*.catch(err => {
-      this.toastrService.warning("Dialog was cancelled");
-    });
-    */
-    
   }
 
 
@@ -300,11 +269,6 @@ export class AppComponent implements OnInit {
       }
       this.onAddProduct(newProduct);
     })
-    /*
-    .catch(err => {
-      this.toastrService.warning("Dialog was cancelled");
-    });
-    */
   }
 
 }

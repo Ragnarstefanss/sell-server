@@ -1,10 +1,10 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async,inject } from '@angular/core/testing';
+import { TestBed, async, inject } from '@angular/core/testing';
 import { AppComponent} from './app.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 import { SellersService, SellerProduct, Seller } from './sellers.service';
-import { NgbModal,NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from "@angular/forms";
 import { Observable } from'rxjs/Observable';
 import { Ng2ImgFallbackModule } from 'ng2-img-fallback';
@@ -55,12 +55,10 @@ describe('AppComponent', () => {
           if (mockService.successGetProducts === true) {
             console.log("products =" + mockService.productList);
             let productList2 = [];
-            for(var p in mockService.productList)
-            {
-              if(mockService.productList[p].sellerId == id)
-              {
+            for (var p in mockService.productList) {
+              if (mockService.productList[p].sellerId == id) {
                 productList2.push(mockService.productList[p]);
-              } 
+              }
             }
             fnSuccess(productList2);
           }
@@ -88,7 +86,7 @@ describe('AppComponent', () => {
       return {
         subscribe: function(fnSuccess, fnError) {
           if (mockService.successPostSellers === true) {
-            console.log("newSeller is"+ JSON.stringify(newSeller));
+            console.log("newSeller is" + JSON.stringify(newSeller));
             newSeller.id = mockService.sellersList[mockService.sellersList.length - 1].id + 1;
             mockService.sellersList.push({ id: newSeller.id, name: newSeller.name, category: newSeller.category });
 
@@ -166,117 +164,111 @@ describe('AppComponent', () => {
 
   };
 
-   var fakeModal = {
+  var fakeModal = {
     componentInstance: {
       seller: {
-      name: "bleh ",
-      category: "stuff",
-      imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
-      id: 0
-    },
-    
-    product: {
-      name: "name",
-      price: 0,
-      quantityInStock: 0,
-      imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
-      id: 7
-    },
-    edit: false
+        name: "bleh ",
+        category: "stuff",
+        imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
+        id: 0
+      },
+
+      product: {
+        name: "name",
+        price: 0,
+        quantityInStock: 0,
+        imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
+        id: 7
+      },
+      edit: false
 
     },
     result: {
-        then: function(confirmCallback,cancelCallback) {
-            //Store the callbacks for later when the user clicks on the OK or Cancel button of the dialog
-            console.log("test result");
-         //   console.log("this is"+ JSON.stringify(this));
-            //console.log("item is "+ JSON.stringify(fakeModal));
-            //fakeModal.close(fakeModal.componentInstance.seller);
-            if(dialogType == "seller")
-            {
-              fakeModal.componentInstance.seller.name = "bleh";
-              this.item = fakeModal.componentInstance.seller;
-            }
-            else
-            {
-              fakeModal.componentInstance.product.name = "bleh";
-              this.item = fakeModal.componentInstance.product;
-            }
+      then: function(confirmCallback, cancelCallback) {
+        //Store the callbacks for later when the user clicks on the OK or Cancel button of the dialog
+        console.log("test result");
+        //   console.log("this is"+ JSON.stringify(this));
+        //console.log("item is "+ JSON.stringify(fakeModal));
+        //fakeModal.close(fakeModal.componentInstance.seller);
+        if (dialogType == "seller") {
+          fakeModal.componentInstance.seller.name = "bleh";
+          this.item = fakeModal.componentInstance.seller;
+        }
+        else {
+          fakeModal.componentInstance.product.name = "bleh";
+          this.item = fakeModal.componentInstance.product;
+        }
 
-            //confirmCallback = true;
-            
-            this.confirmCallBack = confirmCallback;
-            this.cancelCallback = cancelCallback;
-            //console.log("confirm"+confirmCallback);
-            if(dialogAction == "OK")
-            {
-              console.log("OK");
-             //console.log("item is "+ JSON.stringify(fakeModal));
-              return fakeModal.close(this.results);
-            }
-            else
-            {
-              return fakeModal.dismiss();
-            }
-            //return this.item;
-        },
-        catch: function (cancelCallback) {
-            this.cancelCallback = cancelCallback;
-            console.log("test resultcan");
-            return this;
-        },
+        //confirmCallback = true;
+          this.confirmCallBack = confirmCallback;
+        this.cancelCallback = cancelCallback;
+        //console.log("confirm"+confirmCallback);
+        if (dialogAction == "OK") {
+          console.log("OK");
+          //console.log("item is "+ JSON.stringify(fakeModal));
+          return fakeModal.close(this.results);
+        }
+        else {
+          return fakeModal.dismiss();
+        }
+        //return this.item;
+      },
+      catch: function(cancelCallback) {
+        this.cancelCallback = cancelCallback;
+        console.log("test resultcan");
+        return this;
+      },
     },
-    close: function( seller ) {
-        //The user clicked OK on the modal dialog, call the stored confirm callback with the selected item
-        console.log("test close");
-             if(dialogType == "seller")
-            {
+    close: function(seller) {
+      //The user clicked OK on the modal dialog, call the stored confirm callback with the selected item
+      console.log("test close");
+      if (dialogType == "seller") {
         //      console.log("item is "+ JSON.stringify(seller));
-              this.result.confirmCallBack( fakeModal.componentInstance.seller);
-            }
-            else
-            {
+        this.result.confirmCallBack(fakeModal.componentInstance.seller);
+      }
+      else {
         //      console.log("item is "+ JSON.stringify(seller));
-              this.result.confirmCallBack( fakeModal.componentInstance.product);
-            }
+        this.result.confirmCallBack(fakeModal.componentInstance.product);
+      }
 
-        //return this.seller;
+      //return this.seller;
     },
     dismiss: function() {
-    //The user clicked cancel on the modal dialog, call the stored cancel callback
-    console.log("test cancel");
-    return;
-    //this.result.cancelCallback();
-},
-  catch: function( type){
+      //The user clicked cancel on the modal dialog, call the stored cancel callback
+      console.log("test cancel");
+      return;
+      //this.result.cancelCallback();
+    },
+    catch: function(type) {
       console.log("dialog canceled");
       this.result.cancelCallback();
-  }};
-var mockseller = {id:0,name:"",category: "stuff"};
- /*
-  var modalInstance =  {
-        //seller: {id:1,name:"bleh",catagory:"stuff"},
-        open: jasmine.createSpy('modalInstance.open'),
-        //seller: jasmine.createSpy('modalInstance.componentInstance.seller')
-        //seller:mockseller,
-        //edit: false
     }
-  
-  modalInstance.open.and.returnValue(fakeModal.close);
-  */
-  
+  };
+  var mockseller = { id: 0, name: "", category: "stuff" };
+  /*
+   var modalInstance =  {
+         //seller: {id:1,name:"bleh",catagory:"stuff"},
+         open: jasmine.createSpy('modalInstance.open'),
+         //seller: jasmine.createSpy('modalInstance.componentInstance.seller')
+         //seller:mockseller,
+         //edit: false
+     }
+
+   modalInstance.open.and.returnValue(fakeModal.close
+   */
+
   var mockModal = {
     open: jasmine.createSpy("open"),
     //modalInstance: jasmine.createSpy("fakeModal",fakeModal.result())
     //args: open.call.arguments(0)
-    
-    
+
+
   };
 
-var dialogType = "seller";
-var dialogAction = "OK";
-mockModal.open.and.returnValue(fakeModal);
-//var modalInstance2 =
+  var dialogType = "seller";
+  var dialogAction = "OK";
+  mockModal.open.and.returnValue(fakeModal);
+  //var modalInstance2 =
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -292,14 +284,14 @@ mockModal.open.and.returnValue(fakeModal);
         },
         {
           provide: NgbActiveModal,
-          useValue:fakeModal
+          useValue: fakeModal
         }
 
-      ], imports: [FormsModule,Ng2ImgFallbackModule,ToastrModule.forRoot()],
+      ], imports: [FormsModule, Ng2ImgFallbackModule, ToastrModule.forRoot()],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
     TestBed.compileComponents();
-    
+
   });
 
   it('should create the app', async(() => {
@@ -313,24 +305,24 @@ mockModal.open.and.returnValue(fakeModal);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('Söluaðilar!');
   }));
-/*
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
+  /*
+    it('should render title in a h1 tag', async(() => {
+      const fixture = TestBed.createComponent(AppComponent);
+      fixture.detectChanges();
+      const compiled = fixture.debugElement.nativeElement;
 
-    expect(compiled.querySelector('h1').textContent).toContain('Söluaðilar!');
-  }));
-  */
+      expect(compiled.querySelector('h1').textContent).toContain('Söluaðilar!');
+    }));
+    */
 
   describe("when sellers service returns empty list of products", () => {
-   
+
     it("should display a message indicating that no products are to be displayed", () => {
       const fixture = TestBed.createComponent(AppComponent);
       const app = fixture.debugElement.componentInstance;
       let apps = fixture.componentInstance;
-       mockService.successGetProducts = true;
-    mockService.productList = [];
+      mockService.successGetProducts = true;
+      mockService.productList = [];
 
       apps.onGetProducts(1);
       console.log("product list is " + apps.sellerProduct);
@@ -346,9 +338,9 @@ mockModal.open.and.returnValue(fakeModal);
       const fixture = TestBed.createComponent(AppComponent);
       const app = fixture.debugElement.componentInstance;
       let apps = fixture.componentInstance;
-          mockService.successGetProducts = false;
-    mockService.productList = [];
-    mockService.productList = [{
+      mockService.successGetProducts = false;
+      mockService.productList = [];
+      mockService.productList = [{
         sellerId: 1,
         id: 7,
         name: "Ullarsokkar",
@@ -399,32 +391,32 @@ mockModal.open.and.returnValue(fakeModal);
   })
 
   it("should get a list of sellers the moment it is initialized testing ngOninit", () => {
-      mockService.successGetSellers = true;
-      mockService.sellersList = [{
-        id: 1,
-        name: "kristo",
+    mockService.successGetSellers = true;
+    mockService.sellersList = [{
+      id: 1,
+      name: "kristo",
+      category: "stuff"
+    },
+      {
+        id: 2,
+        name: "reinir",
         category: "stuff"
       },
-        {
-          id: 2,
-          name: "reinir",
-          category: "stuff"
-        },
-        {
-          id: 3,
-          name: "sveinn",
-          category: "stuff"
-        }]
-      const fixture = TestBed.createComponent(AppComponent);
-      const app = fixture.debugElement.componentInstance;
-      let apps = fixture.componentInstance;
-      apps.ngOnInit();
-      expect(apps.showProducts).toBe(false);
-      expect(apps.sellerlist).not.toEqual([]);
+      {
+        id: 3,
+        name: "sveinn",
+        category: "stuff"
+      }]
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    let apps = fixture.componentInstance;
+    apps.ngOnInit();
+    expect(apps.showProducts).toBe(false);
+    expect(apps.sellerlist).not.toEqual([]);
   });
 
   describe("when sellers service returns a list of sellers", () => {
-    
+
 
     it("should display a message indicating that sellers are to be displayed", () => {
       mockService.successGetSellers = true;
@@ -487,11 +479,11 @@ mockModal.open.and.returnValue(fakeModal);
         sellerId: 1,
         id: 1,
         name: "Ullarsokkar",
-      },{
-        sellerId: 1,
-        id: 2,
-        name: "stórir Ullarsokkar",
-      }]
+      }, {
+          sellerId: 1,
+          id: 2,
+          name: "stórir Ullarsokkar",
+        }]
       mockService.sellersList = [{
         id: 1,
         name: "kristo",
@@ -684,7 +676,7 @@ mockModal.open.and.returnValue(fakeModal);
       count = apps.sellerlist.length - 1;
       apps.onAddSeller();
       console.log("sellers list is " + JSON.stringify(apps.sellerlist));
-      
+
 
       expect(apps.sellerlist.length - 1).toEqual(count);
       expect(apps.sellerlist).toEqual(mockService.sellersList);
@@ -738,9 +730,9 @@ mockModal.open.and.returnValue(fakeModal);
       apps.getSeller(1);
       apps.onGetProducts(1);
       apps.onAddProduct(newProduct);
-        apps.sellerProduct = apps.sellerProduct.sort(function(a, b) {
-      return a.id > b.id ? 1 : -1
-    });
+      apps.sellerProduct = apps.sellerProduct.sort(function(a, b) {
+        return a.id > b.id ? 1 : -1
+      });
       console.log("new product name = " + JSON.stringify(newProduct.name));
       console.log("productList is " + JSON.stringify(apps.sellerProduct));
       console.log("new product is " + JSON.stringify(apps.sellerProduct[apps.sellerProduct.length - 1]));
@@ -794,7 +786,7 @@ mockModal.open.and.returnValue(fakeModal);
       apps.getSeller(1);
       apps.onGetProducts(1);
       apps.onAddProduct(newProduct);
-    
+
       console.log("new product name = " + JSON.stringify(newProduct.name));
       console.log("productList is " + JSON.stringify(apps.sellerProduct));
       console.log("new product is " + JSON.stringify(apps.sellerProduct[newProduct.id - 1]));
@@ -857,12 +849,12 @@ mockModal.open.and.returnValue(fakeModal);
 
     });
   })
-  
-    describe("functions that test the add seller function", () => {
 
-it("add seller called and then clicked ok ",inject([NgbModal], ( modalService: NgbModal) => {
-     // it("add seller called and then clicked ok ",() => {
-           const fixture = TestBed.createComponent(AppComponent);
+  describe("functions that test the add seller function", () => {
+
+    it("add seller called and then clicked ok ", inject([NgbModal], (modalService: NgbModal) => {
+      // it("add seller called and then clicked ok ",() => {
+      const fixture = TestBed.createComponent(AppComponent);
       const app = fixture.debugElement.componentInstance;
       let apps = fixture.componentInstance;
       mockService.successGetSellers = true;
@@ -871,13 +863,13 @@ it("add seller called and then clicked ok ",inject([NgbModal], ( modalService: N
       mockService.successGetProducts = true;
       mockserv = modalService;
       mockserv.open(SellerDlgComponent);
-let newSeller= {
-  name: "kristo",
-  id: 1,
-  category: "stuff",
-  imagePath: "bleh"
-}
-       mockService.sellersList = [{
+      let newSeller = {
+        name: "kristo",
+        id: 1,
+        category: "stuff",
+        imagePath: "bleh"
+      }
+      mockService.sellersList = [{
         id: 1,
         name: "kristo",
         category: "stuff"
@@ -904,14 +896,14 @@ let newSeller= {
       console.log(apps.sellerName);
       //fakeModal.close(newSeller);
       console.log(apps.sellerName);
-      console.log("sellers list is"+ mockService.sellersList)
+      console.log("sellers list is" + mockService.sellersList)
       expect(apps.sellerlist.length).toBe(4);
       expect(apps.sellerName).toEqual("bleh");
-      }));
+    }));
 
-      it("add seller called and then clicked cancel ",inject([NgbModal], ( modalService: NgbModal) => {
-       // it("add seller called and then clicked ok ",() => {
-           const fixture = TestBed.createComponent(AppComponent);
+    it("add seller called and then clicked cancel ", inject([NgbModal], (modalService: NgbModal) => {
+      // it("add seller called and then clicked ok ",() => {
+      const fixture = TestBed.createComponent(AppComponent);
       const app = fixture.debugElement.componentInstance;
       let apps = fixture.componentInstance;
       mockService.successGetSellers = true;
@@ -920,13 +912,13 @@ let newSeller= {
       mockService.successGetProducts = true;
       mockserv = modalService;
       mockserv.open(SellerDlgComponent);
-let newSeller= {
-  name: "kristo",
-  id: 1,
-  category: "stuff",
-  imagePath: "bleh"
-}
-       mockService.sellersList = [{
+      let newSeller = {
+        name: "kristo",
+        id: 1,
+        category: "stuff",
+        imagePath: "bleh"
+      }
+      mockService.sellersList = [{
         id: 1,
         name: "kristo",
         category: "stuff"
@@ -950,14 +942,14 @@ let newSeller= {
 
       expect(apps.sellerlist.length).toBe(3);
       //expect(apps.sellerName).toEqual("bleh");
-      }));
-    })
+    }));
+  })
 
-    describe("functions that test the add product function", () => {
+  describe("functions that test the add product function", () => {
 
-it("add product called and then clicked ok ",inject([NgbModal], ( modalService: NgbModal) => {
-     // it("add seller called and then clicked ok ",() => {
-           const fixture = TestBed.createComponent(AppComponent);
+    it("add product called and then clicked ok ", inject([NgbModal], (modalService: NgbModal) => {
+      // it("add seller called and then clicked ok ",() => {
+      const fixture = TestBed.createComponent(AppComponent);
       const app = fixture.debugElement.componentInstance;
       let apps = fixture.componentInstance;
       mockService.successGetSellers = true;
@@ -967,13 +959,13 @@ it("add product called and then clicked ok ",inject([NgbModal], ( modalService: 
       mockService.successPostProducts = true;
       mockserv = modalService;
       mockserv.open(ProductCardComponent);
-let newSeller= {
-  name: "kristo",
-  id: 1,
-  category: "stuff",
-  imagePath: "bleh"
-}
-       mockService.sellersList = [{
+      let newSeller = {
+        name: "kristo",
+        id: 1,
+        category: "stuff",
+        imagePath: "bleh"
+      }
+      mockService.sellersList = [{
         id: 1,
         name: "kristo",
         category: "stuff"
@@ -989,12 +981,12 @@ let newSeller= {
           category: "stuff"
         }]
 
-        mockService.productList = [{
+      mockService.productList = [{
         sellerId: 1,
         id: 1,
         name: "Ullarsokkar",
       }]
-      
+
       //spyOn(fakeModal,)
       //spyOn(fakeModal,"result").and.returnValue(true);
       dialogAction = "OK";
@@ -1007,11 +999,11 @@ let newSeller= {
       //console.log(mockModal);
       expect(apps.sellerProduct.length).toBe(2);
       expect(apps.sellerProduct[1].name).toEqual("Ullarsokkar");
-      }));
+    }));
 
-      it("add product called and then clicked cancel ",inject([NgbModal], ( modalService: NgbModal) => {
-       // it("add seller called and then clicked ok ",() => {
-           const fixture = TestBed.createComponent(AppComponent);
+    it("add product called and then clicked cancel ", inject([NgbModal], (modalService: NgbModal) => {
+      // it("add seller called and then clicked ok ",() => {
+      const fixture = TestBed.createComponent(AppComponent);
       const app = fixture.debugElement.componentInstance;
       let apps = fixture.componentInstance;
       mockService.successGetSellers = true;
@@ -1020,13 +1012,13 @@ let newSeller= {
       mockService.successGetProducts = true;
       mockserv = modalService;
       mockserv.open(SellerDlgComponent);
-let newSeller= {
-  name: "kristo",
-  id: 1,
-  category: "stuff",
-  imagePath: "bleh"
-}
-       mockService.sellersList = [{
+      let newSeller = {
+        name: "kristo",
+        id: 1,
+        category: "stuff",
+        imagePath: "bleh"
+      }
+      mockService.sellersList = [{
         id: 1,
         name: "kristo",
         category: "stuff"
@@ -1053,14 +1045,14 @@ let newSeller= {
       //console.log(mockModal);
       expect(apps.sellerProduct.length).toBe(0);
       //expect(apps.sellerName).toEqual("bleh");
-      }));
-    })
+    }));
+  })
 
-      describe("functions that test the edit product function", () => {
+  describe("functions that test the edit product function", () => {
 
-it("edit product called and then clicked ok ",inject([NgbModal], ( modalService: NgbModal) => {
-     // it("add seller called and then clicked ok ",() => {
-           const fixture = TestBed.createComponent(AppComponent);
+    it("edit product called and then clicked ok ", inject([NgbModal], (modalService: NgbModal) => {
+      // it("add seller called and then clicked ok ",() => {
+      const fixture = TestBed.createComponent(AppComponent);
       const app = fixture.debugElement.componentInstance;
       let apps = fixture.componentInstance;
       mockService.successGetSellers = true;
@@ -1070,13 +1062,13 @@ it("edit product called and then clicked ok ",inject([NgbModal], ( modalService:
       mockService.successPostProducts = true;
       mockserv = modalService;
       mockserv.open(ProductCardComponent);
-let newSeller= {
-  name: "kristo",
-  id: 1,
-  category: "stuff",
-  imagePath: "bleh"
-}
-       mockService.sellersList = [{
+      let newSeller = {
+        name: "kristo",
+        id: 1,
+        category: "stuff",
+        imagePath: "bleh"
+      }
+      mockService.sellersList = [{
         id: 1,
         name: "kristo",
         category: "stuff"
@@ -1092,20 +1084,20 @@ let newSeller= {
           category: "stuff"
         }]
 
-        mockService.productList = [{
+      mockService.productList = [{
         sellerId: 1,
         id: 1,
         name: "Ullarsokkar",
       }]
-      
-      let newProduct= {
+
+      let newProduct = {
         sellerId: 1,
         id: 1,
         name: "Ullarsokkar",
         price: 300,
         quantitySold: 300,
-        quantityInStock:20,
-        imagePath:""
+        quantityInStock: 20,
+        imagePath: ""
       }
       //spyOn(fakeModal,)
       //spyOn(fakeModal,"result").and.returnValue(true);
@@ -1115,14 +1107,14 @@ let newSeller= {
       apps.getSeller(1);
       apps.editProduct(newProduct);
       //fakeModal.dismiss;
-   
+
       expect(apps.sellerProduct.length).toBe(1);
       expect(apps.sellerProduct[0].name).toEqual("Ullarsokkar");
-      }));
+    }));
 
-      it("edit product called and then clicked cancel ",inject([NgbModal], ( modalService: NgbModal) => {
-       // it("add seller called and then clicked ok ",() => {
-           const fixture = TestBed.createComponent(AppComponent);
+    it("edit product called and then clicked cancel ", inject([NgbModal], (modalService: NgbModal) => {
+      // it("add seller called and then clicked ok ",() => {
+      const fixture = TestBed.createComponent(AppComponent);
       const app = fixture.debugElement.componentInstance;
       let apps = fixture.componentInstance;
       mockService.successGetSellers = true;
@@ -1133,13 +1125,13 @@ let newSeller= {
       mockService.successPutProducts = false;
       mockserv = modalService;
       mockserv.open(SellerDlgComponent);
-let newSeller= {
-  name: "kristo",
-  id: 1,
-  category: "stuff",
-  imagePath: "bleh"
-}
-       mockService.sellersList = [{
+      let newSeller = {
+        name: "kristo",
+        id: 1,
+        category: "stuff",
+        imagePath: "bleh"
+      }
+      mockService.sellersList = [{
         id: 1,
         name: "kristo",
         category: "stuff"
@@ -1154,14 +1146,14 @@ let newSeller= {
           name: "sveinn",
           category: "stuff"
         }]
-            let newProduct= {
+      let newProduct = {
         sellerId: 1,
         id: 1,
         name: "Ullarsokkar",
         price: 300,
         quantitySold: 300,
-        quantityInStock:20,
-        imagePath:""
+        quantityInStock: 20,
+        imagePath: ""
       }
       //spyOn(fakeModal,)
       //spyOn(fakeModal,"result").and.returnValue(true);
@@ -1179,11 +1171,11 @@ let newSeller= {
       //console.log("product list is"+ mockService.productList)
       expect(apps.sellerProduct.length).toBe(0);
       //expect(apps.sellerName).toEqual("bleh");
-      }));
-    })
+    }));
+  })
 
-    
-  
+
+
 });
 
 
