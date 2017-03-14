@@ -225,6 +225,8 @@ app.put("/api/sellers/:id/products/:prodId", (req, res) => {
 	product.product.name = req.body.name;
 	product.product.price = req.body.price;
 	product.product.imagePath = req.body.imagePath;
+	product.product.quantityInStock = req.body.quantityInStock;
+	product.product.quantitySold = req.body.quantitySold;
 
 	// Success!
 	res.statusCode = 200;
