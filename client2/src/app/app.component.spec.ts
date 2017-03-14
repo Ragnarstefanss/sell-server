@@ -738,6 +738,9 @@ mockModal.open.and.returnValue(fakeModal);
       apps.getSeller(1);
       apps.onGetProducts(1);
       apps.onAddProduct(newProduct);
+        apps.sellerProduct = apps.sellerProduct.sort(function(a, b) {
+      return a.id > b.id ? 1 : -1
+    });
       console.log("new product name = " + JSON.stringify(newProduct.name));
       console.log("productList is " + JSON.stringify(apps.sellerProduct));
       console.log("new product is " + JSON.stringify(apps.sellerProduct[apps.sellerProduct.length - 1]));
@@ -791,6 +794,7 @@ mockModal.open.and.returnValue(fakeModal);
       apps.getSeller(1);
       apps.onGetProducts(1);
       apps.onAddProduct(newProduct);
+    
       console.log("new product name = " + JSON.stringify(newProduct.name));
       console.log("productList is " + JSON.stringify(apps.sellerProduct));
       console.log("new product is " + JSON.stringify(apps.sellerProduct[newProduct.id - 1]));
