@@ -41,7 +41,7 @@
         <div [hidden]="!showProducts">
           <ngb-tabset>
             <ngb-tab>
-              <template ngbTabTitle><b>All products</b></template>
+              <template ngbTabTitle> <span (click)="changeToAll()"><b>All products</b></span></template>
               <template ngbTabContent>
               <div *ngFor="let p of sellerProduct">
                 <div class="col-sm-6 col-md-3">
@@ -62,7 +62,7 @@
             </template>
             </ngb-tab>
             <ngb-tab>
-              <template ngbTabTitle><b>Top 10</b></template>
+              <template ngbTabTitle><span (click)="changeToTop10()"><b>Top 10</b></span></template>
               <template ngbTabContent>
                   <div *ngFor="let p of sellerProduct; let i = index">
                     <div *ngIf="i<10">
