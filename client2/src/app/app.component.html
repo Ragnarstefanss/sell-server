@@ -20,19 +20,16 @@
           <tr>
             <td><a class="text-primary" (click)="getSeller(s.id)">{{s.name}}</a></td>
             <td>{{s.category}}</td>
-            <td>
           </tr>
         </tbody>
       </table>
 
 
       <div *ngIf="sellerSelected">
-        <div class="float-left">
-          <img src="{{seller.imagePath}}" alt="Image of the seller" src-fallback="{{ workingPlaceholder }}" style="max-width: 220px; max-height:220px;" />
-        </div>
+
         <h2>{{seller.name}}</h2>
-        <h3>{{seller.category}}</h3>
-        <br><br><br><br>
+        <h4>{{seller.category}}</h4>
+        <img src="{{seller.imagePath}}" alt="Image of the seller" src-fallback="{{ workingPlaceholder }}" style="width: 250px; height:220px;" />
 
         <div class="float-right">
           <button class="btn  btn-outline-primary" (click)="addProduct()">Add a new Product</button>
@@ -41,44 +38,42 @@
         <div [hidden]="!showProducts">
           <ngb-tabset>
             <ngb-tab>
-              <template ngbTabTitle><b>All products</b></template>
+              <template ngbTabTitle> <span (click)="changeToAll()"><b>All products</b></span></template>
               <template ngbTabContent>
-              <div *ngFor="let p of sellerProduct">
-                <div class="col-sm-6 col-md-3">
-                  <div class="thumbnail">
-                    <img src="{{p.imagePath}}"  alt="Image of the product" src-fallback="{{ workingPlaceholder }}" (click)="editProduct(p)" style="max-width: 200px; max-height:200px;"/>
-                  </div>
+                <div *ngFor="let p of sellerProduct">
+                  <div class="col-sm-6 col-md-4 float-left">
+                    <div class="thumbnail">
+                      <img src="{{p.imagePath}}"  alt="Image of the product" src-fallback="{{ workingPlaceholder }}" (click)="editProduct(p)" style="width: 200px; height:200px;"/>
+                    </div>
 
-                  <div class="caption">
-                    <h3>{{p.name}}</h3>
-                    <p>price = {{p.price}}, sold = {{p.quantitySold}}</p>
-                    <p>
-                      <a href="#" class="btn btn-primary" role="button">View</a>
-                      <a href="#" class="btn btn-default" (click)="editProduct(p)" role=" button">Edit</a>
-                    </p>
+                    <div class="caption">
+                      <h3>{{p.name}}</h3>
+                      <p>price = {{p.price}}, sold = {{p.quantitySold}}</p>
+                      <p>
+                        <a href="#" class="btn btn-primary" (click)="editProduct(p)" role=" button">Edit</a>
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
             </template>
             </ngb-tab>
             <ngb-tab>
-              <template ngbTabTitle><b>Top 10</b></template>
+              <template ngbTabTitle><span (click)="changeToTop10()"><b>Top 10</b></span></template>
               <template ngbTabContent>
                   <div *ngFor="let p of sellerProduct; let i = index">
                     <div *ngIf="i<10">
 
 
-                    <div class="col-sm-6 col-md-3">
+                  <div class="col-sm-6 col-md-4 float-left">
                       <div class="thumbnail">
-                        <img src="{{p.imagePath}}" alt="Image of the product" src-fallback="{{ workingPlaceholder }}" (click)="editProduct(p)" style="max-width: 200px; max-height:200px;"/>
+                        <img src="{{p.imagePath}}" alt="Image of the product" src-fallback="{{ workingPlaceholder }}" (click)="editProduct(p)" style="width: 200px; height:200px;"/>
                       </div>
 
                       <div class="caption">
                         <h3>{{p.name}}</h3>
                         <p>price = {{p.price}}, sold = {{p.quantitySold}}</p>
                         <p>
-                          <a href="#" class="btn btn-primary" role="button">View</a>
-                          <a href="#" class="btn btn-default" (click)="editProduct(p)" role=" button">Edit</a>
+                          <a href="#" class="btn btn-primary" (click)="editProduct(p)" role=" button">Edit</a>
                         </p>
                       </div>
                     </div>
@@ -93,6 +88,7 @@
             <strong>{{seller.name}}</strong> does not have any products.
           </div>
         </div>
+
       </div>
     </div>
   </div>

@@ -40,18 +40,16 @@ export class AppComponent implements OnInit {
   onGetProducts(num: number) {
     var successSellerProducts = result => {
 
-        if ( result.length > 0 ) {
-          this.showProducts = true;
-        }
-        else {
-          this.showProducts = false;
-        }
+      if (result.length > 0) {
+        this.showProducts = true;
+      }
+      else {
+        this.showProducts = false;
+      }
 
-        this.sellerProduct = result;
+      this.sellerProduct = result;
+      this.changeToAll();
 
-        this.sellerProduct = this.sellerProduct.sort(function(a, b) {
-          return a.quantitySold < b.quantitySold ? 1 : -1
-        });
     }
 
     var errorSellerProducts = (err) => {
@@ -76,9 +74,7 @@ export class AppComponent implements OnInit {
         this.showProducts = false;
       }
       this.sellerProduct = result;
-      this.sellerProduct = this.sellerProduct.sort(function(a, b) {
-        return a.quantitySold < b.quantitySold ? 1 : -1
-      });
+      this.changeToAll();
     };
 
     var errorGetSeller = (err) => {
@@ -91,6 +87,18 @@ export class AppComponent implements OnInit {
 
     this.service.getSellerById(num).subscribe(successGetSeller, errorGetSeller);
     this.service.getSellerProducts(num).subscribe(successGetSellerProducts, errorGetSellerProducts);
+  }
+
+  changeToAll() {
+    this.sellerProduct = this.sellerProduct.sort(function(a, b) {
+      return a.id < b.id ? 1 : -1
+    });
+  }
+
+  changeToTop10() {
+    this.sellerProduct = this.sellerProduct.sort(function(a, b) {
+      return a.quantitySold < b.quantitySold ? 1 : -1
+    });
   }
 
   onGetSellers() {
@@ -121,6 +129,7 @@ export class AppComponent implements OnInit {
       this.toastrService.warning("seller name is required");
       return;
     }
+
     for (var s in this.sellerlist) {
       //console.log("S id is "+ this.sellerlist[s].id +" and S.name is "+this.sellerlist[s].name);
       if (this.sellerlist[s].name == this.sellerName) {

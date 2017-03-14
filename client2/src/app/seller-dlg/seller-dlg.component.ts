@@ -17,7 +17,7 @@ export class SellerDlgComponent implements OnInit {
   seller: Seller;
   constructor(public activeModal: NgbActiveModal) { }
 
-  ngOnInit() {  }
+  ngOnInit() { }
 
   onCancel() {
     this.activeModal.dismiss();
