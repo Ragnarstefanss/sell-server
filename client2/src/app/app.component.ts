@@ -156,15 +156,21 @@ export class AppComponent implements OnInit {
       imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
       id: 0
     };
-
     modalInstance.result.then(obj => {
+      console.log("object is" +JSON.stringify(obj));
       this.sellerName = obj.name;
       this.sellerCatagory = obj.category;
       this.sellerImagePath = obj.imagePath;
+      console.log("object is" +JSON.stringify(obj));
       this.onAddSeller();
-    }).catch(err => {
+    })
+    /*.catch(err => {
       this.toastrService.warning("Dialog was cancelled");
     });
+    */
+    
+    
+    
   }
 
   onAddProduct(newProduct: SellerProduct) {
@@ -214,6 +220,7 @@ export class AppComponent implements OnInit {
       id: product.id
     };
     modalInstance.componentInstance.edit = true;
+    modalInstance.componentInstance
     modalInstance.result.then(obj => {
       newProduct = {
         id: obj.id,
@@ -224,9 +231,12 @@ export class AppComponent implements OnInit {
         imagePath: obj.imagePath
       }
       this.onAddProduct(newProduct);
-    }).catch(err => {
+    })
+    /*.catch(err => {
       this.toastrService.warning("Dialog was cancelled");
     });
+    */
+    
   }
 
 
@@ -252,9 +262,12 @@ export class AppComponent implements OnInit {
         imagePath: obj.imagePath
       }
       this.onAddProduct(newProduct);
-    }).catch(err => {
+    })
+    /*
+    .catch(err => {
       this.toastrService.warning("Dialog was cancelled");
     });
+    */
   }
 
 }
