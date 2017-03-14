@@ -8,19 +8,12 @@
 <!--breyta í edit a user -->
 <form data-toggle="validator" role="form">
   <div class="modal-body">
-<!--
-    <div class="form-group">
-       <label class="control-label">minlength</label>
-       <input class="form-control" type="text" ngModel name="minlength" #minlength="ngModel" minlength="5"/>
-       <p class="alert alert-danger" *ngIf="minlength?.errors?.minlength">minlength error</p>
-
-     </div>-->
 
     <div class="form-group">
       <label for="inputName" class="control-label">Name</label>
-        <input type="text" class="form-control" id="inputName" name="name" placeholder="enter name here" [(ngModel)]="seller.name" #name="ngModel" minlength="3" autofocus="" required/>
-        <p class="alert alert-danger" *ngIf="name?.errors?.required">please provide a name</p>
-        <p class="alert alert-danger" *ngIf="name?.errors?.minlength">name must be at least 3 characters</p>
+      <input type="text" class="form-control" id="inputName" name="name" placeholder="enter name here" [(ngModel)]="seller.name" #name="ngModel" minlength="3" autofocus="" required/>
+      <p class="alert alert-danger" *ngIf="name?.errors?.required">please provide a name</p>
+      <p class="alert alert-danger" *ngIf="name?.errors?.minlength">name must be at least 3 characters</p>
     </div>
 
 
@@ -32,7 +25,7 @@
 
     <div class="form-group">
       <label for="inputImage" class="control-label">Image url</label>
-      <input type="text" class="form-control"  id="inputImage" name="imagePath" [(ngModel)]="seller.imagePath" #imagePath="ngModel" placeholder="enter url path here" url required/>
+      <input type="text" class="form-control" id="inputImage" name="imagePath" [(ngModel)]="seller.imagePath" #imagePath="ngModel" placeholder="enter url path here" url required/>
       <p class="alert alert-danger" *ngIf="imagePath?.errors?.required">please provide a url path to image</p>
       <p class="alert alert-danger" *ngIf="imagePath?.errors?.url">please provide a valid image url path</p>
     </div>

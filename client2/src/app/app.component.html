@@ -43,22 +43,22 @@
             <ngb-tab>
               <template ngbTabTitle> <span (click)="changeToAll()"><b>All products</b></span></template>
               <template ngbTabContent>
-              <div *ngFor="let p of sellerProduct">
-                <div class="col-sm-6 col-md-3">
-                  <div class="thumbnail">
-                    <img src="{{p.imagePath}}"  alt="Image of the product" src-fallback="{{ workingPlaceholder }}" (click)="editProduct(p)" style="max-width: 200px; max-height:200px;"/>
-                  </div>
+                <div *ngFor="let p of sellerProduct">
+                  <div class="col-sm-6 col-md-4 float-left">
+                    <div class="thumbnail">
+                      <img src="{{p.imagePath}}"  alt="Image of the product" src-fallback="{{ workingPlaceholder }}" (click)="editProduct(p)" style="width: 200px; height:200px;"/>
+                    </div>
 
-                  <div class="caption">
-                    <h3>{{p.name}}</h3>
-                    <p>price = {{p.price}}, sold = {{p.quantitySold}}</p>
-                    <p>
-                      <a href="#" class="btn btn-primary" role="button">View</a>
-                      <a href="#" class="btn btn-default" (click)="editProduct(p)" role=" button">Edit</a>
-                    </p>
+                    <div class="caption">
+                      <h3>{{p.name}}</h3>
+                      <p>price = {{p.price}}, sold = {{p.quantitySold}}</p>
+                      <p>
+                        <a href="#" class="btn btn-primary" role="button">View</a>
+                        <a href="#" class="btn btn-default" (click)="editProduct(p)" role=" button">Edit</a>
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
             </template>
             </ngb-tab>
             <ngb-tab>
@@ -68,9 +68,9 @@
                     <div *ngIf="i<10">
 
 
-                    <div class="col-sm-6 col-md-3">
+                  <div class="col-sm-6 col-md-4 float-left">
                       <div class="thumbnail">
-                        <img src="{{p.imagePath}}" alt="Image of the product" src-fallback="{{ workingPlaceholder }}" (click)="editProduct(p)" style="max-width: 200px; max-height:200px;"/>
+                        <img src="{{p.imagePath}}" alt="Image of the product" src-fallback="{{ workingPlaceholder }}" (click)="editProduct(p)" style="width: 200px; height:200px;"/>
                       </div>
 
                       <div class="caption">
@@ -93,6 +93,7 @@
             <strong>{{seller.name}}</strong> does not have any products.
           </div>
         </div>
+
       </div>
     </div>
   </div>
