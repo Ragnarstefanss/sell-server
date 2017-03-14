@@ -499,7 +499,7 @@ describe('AppComponent', () => {
       count = apps.sellerlist.length - 1;
       apps.onAddSeller();
       console.log("sellers list is " + JSON.stringify(apps.sellerlist));
-      //console.log("seller is "+JSON.stringify(apps.seller));
+      
 
       expect(apps.sellerlist.length - 1).toEqual(count);
       expect(apps.sellerlist).toEqual(mockService.sellersList);
