@@ -12,9 +12,12 @@
 <form name="userForm">
   <div class="modal-body">
     <div class="form-group">
-      <label class="control-label">Name</label>
-      <input type="text" class="form-control" name="name" [(ngModel)]="product.name" autofocus="" [readonly]="edit" />
+      <label for="inputName" class="control-label">Name</label>
+        <input type="text" class="form-control" id="inputName" name="name" placeholder="enter name here" [(ngModel)]="product.name" [readonly]="edit" #name="ngModel" minlength="3" autofocus="" required/>
+        <p class="alert alert-danger" *ngIf="name?.errors?.required">please provide a name</p>
+        <p class="alert alert-danger" *ngIf="name?.errors?.minlength">name must be at least 3 characters</p>
     </div>
+
     <div class="form-group">
       <label class="control-label">Price</label>
       <input type="number" min="0" class="form-control" name="price" [(ngModel)]="product.price" placeholder="enter price here" />
@@ -23,11 +26,15 @@
       <label class="control-label">quantityInStock</label>
       <input type="number" min="0" class="form-control" name="quantityInStock" [(ngModel)]="product.quantityInStock" placeholder="enter Stock quantity here" />
     </div>
+
     <div class="form-group">
-      <label class="control-label">Image url</label>
-      <input type="text" class="form-control" name="imagePath" [(ngModel)]="product.imagePath" placeholder="enter url path here" />
+      <label for="inputImage" class="control-label">Image url</label>
+      <input type="text" class="form-control"  id="inputImage" name="imagePath" [(ngModel)]="product.imagePath" #imagePath="ngModel" placeholder="enter url path here" url required/>
+      <p class="alert alert-danger" *ngIf="imagePath?.errors?.required">please provide a url path to image</p>
+      <p class="alert alert-danger" *ngIf="imagePath?.errors?.url">please provide a valid image url path</p>
     </div>
   </div>
+
 
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="onCancel()">Close</button>

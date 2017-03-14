@@ -10,6 +10,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
 import { Ng2ImgFallbackModule } from 'ng2-img-fallback';
 import { ToastrModule } from 'toastr-ng2';
 import { CommonModule } from '@angular/common';
+import { CustomFormsModule } from 'ng2-validation';
 
 class MainModule { }
 
@@ -26,7 +27,8 @@ class MainModule { }
     FormsModule,
     Ng2ImgFallbackModule,
     HttpModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    CustomFormsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [SellersService],

@@ -40,15 +40,15 @@ export class AppComponent implements OnInit {
   onGetProducts(num: number) {
     var successSellerProducts = result => {
 
-        if ( result.length > 0 ) {
-          this.showProducts = true;
-        }
-        else {
-          this.showProducts = false;
-        }
+      if (result.length > 0) {
+        this.showProducts = true;
+      }
+      else {
+        this.showProducts = false;
+      }
 
-        this.sellerProduct = result;
-        this.changeToAll();
+      this.sellerProduct = result;
+      this.changeToAll();
 
     }
 
