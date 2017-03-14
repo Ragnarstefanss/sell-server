@@ -1009,9 +1009,6 @@ let newSeller= {
 
       //console.log(mockModal);
       console.log("apps" + JSON.stringify(apps.sellerProduct));
-      //console.log(apps.sellerName);
-      //fakeModal.close(newSeller);
-      //console.log(apps.sellerName);
       console.log("sellers list is"+ mockService.productList)
       expect(apps.sellerProduct.length).toBe(2);
       expect(apps.sellerProduct[1].name).toEqual("Ullarsokkar");

@@ -158,11 +158,39 @@ export class AppComponent implements OnInit {
     var Exists: boolean;
     Exists = false;
     var oldId: number;
-
     modalInstance.componentInstance.seller = {
       name: "",
       category: "undefined",
       imagePath: "http://krishnendu.org/wp-content/uploads/2016/08/no_image.jpg",
+      id: 0
+    };
+    modalInstance.result.then(obj => {
+      console.log("object is" +JSON.stringify(obj));
+      this.sellerName = obj.name;
+      this.sellerCatagory = obj.category;
+      this.sellerImagePath = obj.imagePath;
+      console.log("object is" +JSON.stringify(obj));
+      this.onAddSeller();
+    })
+    /*.catch(err => {
+      this.toastrService.warning("Dialog was cancelled");
+    });
+    */
+    
+    
+    
+  }
+    
+    editSeller(newSeller:Seller) {
+    const modalInstance = this.modalService.open(SellerDlgComponent);
+    //var newSeller: Seller;
+    var Exists: boolean;
+    Exists = false;
+    var oldId: number;
+    modalInstance.componentInstance.seller = {
+      name:newSeller.name,
+      category: newSeller.category,
+      imagePath: newSeller.imagePath,
       id: 0
     };
     modalInstance.result.then(obj => {

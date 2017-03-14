@@ -14,12 +14,14 @@
           <tr>
             <th>Name of seller</th>
             <th>Category</th>
+            <th>Edit</th>
           </tr>
         </thead>
         <tbody *ngFor="let s of sellerlist">
           <tr>
             <td><a class="text-primary" (click)="getSeller(s.id)">{{s.name}}</a></td>
             <td>{{s.category}}</td>
+            <td><button class="btn  btn-outline-primary" (click)="editSeller(s)">Edit</button></td>
           </tr>
         </tbody>
       </table>
